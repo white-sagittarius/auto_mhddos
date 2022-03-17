@@ -18,7 +18,7 @@
 Опционально можно указать параметры:
 
 ```shell
-docker run -it --rm aruiem234/auto_mhddos:latest [num_of_copies] [restart_interval] [threads] [rpc]
+docker run -it --rm aruiem234/auto_mhddos:latest [num_of_copies] [threads] [rpc]
 ```
 
 ### Bash
