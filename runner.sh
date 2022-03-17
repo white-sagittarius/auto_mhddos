@@ -23,6 +23,7 @@ pkill -f start.py
 pkill python3
 
 # Install git, python3, pip if doesn't installed already
+apt update -y
 if [ ! -f /usr/bin/git ]; then
    sudo apt install git -y
 fi
