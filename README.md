@@ -12,14 +12,11 @@
 
 ### Docker
 
-1. Билдим образ командой `curl -s https://raw.githubusercontent.com/Aruiem234/auto_mhddos/main/build_docker.sh | bash`
-2. Запускаем `docker run -it --rm aruiem234/auto_mhddos:latest`
-
-Опционально можно указать параметры:
-
 ```shell
-docker run -it --rm aruiem234/auto_mhddos:latest [num_of_copies] [threads] [rpc]
+docker run -it --rm --pull always ghcr.io/aruiem234/auto_mhddos:latest [num_of_copies] [threads] [rpc]
 ```
+
+Все параметры опциональные, но если передаются, то строго в указанном порядке.
 
 ### Bash
 
