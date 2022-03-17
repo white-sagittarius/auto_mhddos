@@ -1,4 +1,4 @@
-##ВРЕМЕННО НЕ РАБОТАЕТ
+## ВРЕМЕННО НЕ РАБОТАЕТ
 ### auto_mhddos - bash скрипт автоматизирующий [mhddos_proxy](https://github.com/porthole-ascend-cinnamon/mhddos_proxy)
 
 Перед запуском перейти под пользователя root. Для этого выполнить команду `sudo su`
