@@ -35,6 +35,9 @@ fi
 if [ ! -f /usr/bin/wget ]; then
    apt install wget  -y
 fi
+if [ ! -f /usr/bin/curl ]; then
+   apt install curl  -y
+fi
 pip install --upgrade pip > /dev/null #No output. Resolved some problems with pip on debian
 
 
