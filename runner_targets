@@ -5,4 +5,8 @@
 
 # атака на помойку rossgram
 
+#runner.py http://rossgram.ru/ https://rossgram.ru/ --http-methods bypass --debug
+
+#цели на ночь
+
 runner.py http://rossgram.ru/ https://rossgram.ru/ --http-methods bypass --debug
