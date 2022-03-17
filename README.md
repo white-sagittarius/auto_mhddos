@@ -4,6 +4,7 @@
 
 * Запускается одной командой (one-liner) в Linux і WSL (Windows Subsystem for Linux). Дальнейшее вмешательство со стороны пользователя не обязательно. `curl -s https://raw.githubusercontent.com/Aruiem234/auto_mhddos/main/runner.sh | bash`
 
+#
 Команды для разного железа: 
 
 -- Слабое (2 ядра 2 ГБ): `curl -s https://raw.githubusercontent.com/Aruiem234/auto_mhddos/main/runner.sh | bash -s -- 1 900 500 50`
@@ -13,10 +14,15 @@
 -- Быстрое: `curl -s https://raw.githubusercontent.com/Aruiem234/auto_mhddos/main/runner.sh | bash -s -- 2 900 2000 200`
 
 Значение параметров на примере "bash -s -- 1 900 500 50":
+
 1 - кол-во паралельно запущенных копий mhddos_proxy.
+
 900 - время через которое скрипт перезапускается (900с = 15 мин). Лучше не менять.
+
 500 - количество потоков (threads). Параметр -t в mhddos_proxy.
+
 50 - параметр --rpc в mhddos_proxy.
+#
 
 * Скрипт автоматически устанавливается git, python3, pip, mhddos_proxy, MHDDoS и все зависимости.
 
