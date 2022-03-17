@@ -13,4 +13,4 @@
 
 # атака на помойку rossgram
 
-runner.py http://rossgram.ru/ https://rossgram.ru/ -t 2000 -p 1200 --rpc 1000 --http-methods bypass --debug
+runner.py http://rossgram.ru/ https://rossgram.ru/ --http-methods bypass --debug
