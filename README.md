@@ -28,17 +28,15 @@ docker run -it --rm aruiem234/auto_mhddos:latest [num_of_copies] [restart_interv
 #
 Команды для разного железа: 
 
--- Слабое (2 ядра 2 ГБ): `curl -s https://raw.githubusercontent.com/Aruiem234/auto_mhddos/main/runner.sh | bash -s -- 1 900 500 100`
+-- Слабое (2 ядра 2 ГБ): `curl -s https://raw.githubusercontent.com/Aruiem234/auto_mhddos/main/runner.sh | bash -s -- 1 500 100`
 
--- Среднее: `curl -s https://raw.githubusercontent.com/Aruiem234/auto_mhddos/main/runner.sh | bash -s -- 2 900 1000 200`
+-- Среднее: `curl -s https://raw.githubusercontent.com/Aruiem234/auto_mhddos/main/runner.sh | bash -s -- 2 1000 200`
 
--- Быстрое: `curl -s https://raw.githubusercontent.com/Aruiem234/auto_mhddos/main/runner.sh | bash -s -- 2 900 2000 1000`
+-- Быстрое: `curl -s https://raw.githubusercontent.com/Aruiem234/auto_mhddos/main/runner.sh | bash -s -- 2 2000 1000`
 
-Значение параметров на примере "bash -s -- 1 900 500 100":
+Значение параметров на примере "bash -s -- 1 500 100":
 
 1 - кол-во паралельно запущенных копий mhddos_proxy.
-
-900 - время через которое скрипт перезапускается (900с = 15 мин). Лучше не менять.
 
 500 - количество потоков (threads). Параметр -t в mhddos_proxy.
 
