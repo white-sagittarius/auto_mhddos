@@ -88,7 +88,7 @@ do
            
             #echo $cmd_line
             echo $cmd_line $proxy_interval $threads $rpc
-            python3 ~/mhddos_proxy/$cmd_line& $proxy_interval $threads $rpc&
+            python3 ~/mhddos_proxy/$cmd_line $proxy_interval $threads $rpc&
    done
 echo -e "#####################################\n"
 sleep $restart_interval
