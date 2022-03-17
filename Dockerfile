@@ -1,3 +1,5 @@
+LABEL org.opencontainers.image.source=https://github.com/Aruiem234/auto_mhddos
+
 FROM python:3.10-alpine3.15 as builder
 RUN apk update && apk add git curl gcc libc-dev libffi-dev
 RUN git clone https://github.com/porthole-ascend-cinnamon/mhddos_proxy.git
