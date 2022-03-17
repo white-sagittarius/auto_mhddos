@@ -63,4 +63,4 @@ docker run -it --rm aruiem234/auto_mhddos:latest [num_of_copies] [threads] [rpc]
 
 ИЛИ
 
-В другом терминале выполните команду "pkill -f python3", потом в основном терминале нажмите CTRL + C.
+В другом терминале выполните команду "pkill python3", потом в основном терминале нажмите CTRL + C.
