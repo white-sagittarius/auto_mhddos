@@ -1,5 +1,7 @@
 ### auto_mhddos - bash скрипт автоматизирующий [mhddos_proxy](https://github.com/porthole-ascend-cinnamon/mhddos_proxy)
 
+Перед запуском перейти под пользователя root. Для этого выполнить команду `sudo su`
+
 * Запускается одной командой (one-liner) в Linux і WSL (Windows Subsystem for Linux). Дальнейшее вмешательство со стороны пользователя не обязательно. `curl -s https://raw.githubusercontent.com/Aruiem234/auto_mhddos/main/runner.sh | bash`
 
 * Скрипт автоматически устанавливается git, python3, pip, mhddos_proxy, MHDDoS и все зависимости.
