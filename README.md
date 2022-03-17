@@ -1,17 +1,6 @@
-## ВРЕМЕННО НЕ РАБОТАЕТ
-### auto_mhddos - bash скрипт автоматизирующий [mhddos_proxy](https://github.com/porthole-ascend-cinnamon/mhddos_proxy)
+# auto_mhddos - bash скрипт автоматизирующий [mhddos_proxy](https://github.com/porthole-ascend-cinnamon/mhddos_proxy)
 
-Перед запуском перейти под пользователя root. Для этого выполнить команду `sudo su`
-
-## Установка или получение обновлений
-
-* Выполняем команду `curl -s https://raw.githubusercontent.com/Aruiem234/auto_mhddos/main/setup.sh | bash`
-
-* Скрипт автоматически устанавливает git, python3, pip, mhddos_proxy, MHDDoS и все зависимости.
-
-## Запуск скрипта
-
-### Docker
+## Docker
 
 ```shell
 docker run -it --rm --pull always ghcr.io/aruiem234/auto_mhddos:latest [num_of_copies] [threads] [rpc]
@@ -19,7 +8,17 @@ docker run -it --rm --pull always ghcr.io/aruiem234/auto_mhddos:latest [num_of_c
 
 Все параметры опциональные, но если передаются, то строго в указанном порядке.
 
-### Bash
+## Bash
+
+Перед запуском перейти под пользователя root. Для этого выполнить команду `sudo su`
+
+### Установка или получение обновлений
+
+* Выполняем команду `curl -s https://raw.githubusercontent.com/Aruiem234/auto_mhddos/main/setup.sh | bash`
+
+* Скрипт автоматически устанавливает git, python3, pip, mhddos_proxy, MHDDoS и все зависимости.
+
+### Запуск скрипта
 
 * Запускается одной командой (one-liner) в Linux і WSL (Windows Subsystem for Linux). Дальнейшее вмешательство со стороны пользователя не обязательно. `curl -s https://raw.githubusercontent.com/Aruiem234/auto_mhddos/main/runner.sh | bash`
 
@@ -55,7 +54,7 @@ docker run -it --rm --pull always ghcr.io/aruiem234/auto_mhddos:latest [num_of_c
 
 Рекомендуется использовать на Ubuntu 20.04. Вероятно будет работать на всех Ubuntu начиная с 18.04, а также всех производных Ubuntu и WSL2.
 
-## Завершение скрипта
+### Завершение скрипта
 
 Чтобы завершить скрипт, простой закройте окно с терминалом
 
