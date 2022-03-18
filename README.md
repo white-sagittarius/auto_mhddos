@@ -1,3 +1,7 @@
+### ⭕️ Оперативный штаб Жнецов
+![photo_2022-03-17_23-39-03](https://user-images.githubusercontent.com/41838573/158963538-944690c4-83ea-4934-9a29-6eb8f1e61f3a.jpg)
+
+
 ### auto_mhddos - bash скрипт автоматизирующий [mhddos_proxy](https://github.com/porthole-ascend-cinnamon/mhddos_proxy)
 
 ## Docker
