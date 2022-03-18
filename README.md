@@ -29,7 +29,7 @@ curl -s https://raw.githubusercontent.com/Aruiem234/auto_mhddos/main/setup.sh | 
 
 ### Запуск.
 
-Запускается одной командой (one-liner) в Linux і WSL (Windows Subsystem for Linux). Дальнейшее вмешательство со стороны пользователя не обязательно. 
+Bash скрипт работает в Linux и WSL (Windows Subsystem for Linux).
 
 
 ```shell
