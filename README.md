@@ -1,4 +1,4 @@
-# auto_mhddos - bash скрипт автоматизирующий [mhddos_proxy](https://github.com/porthole-ascend-cinnamon/mhddos_proxy)
+### auto_mhddos - bash скрипт автоматизирующий [mhddos_proxy](https://github.com/porthole-ascend-cinnamon/mhddos_proxy)
 
 ## Docker
 
@@ -12,24 +12,47 @@ docker run -it --rm --pull always ghcr.io/aruiem234/auto_mhddos:latest [num_of_c
 
 Перед запуском перейти под пользователя root. Для этого выполнить команду `sudo su`
 
-### Установка или получение обновлений
+### Установка. Выполняется для начальной установки ПО, и периодического обновления. Не обязательно использовать каждый раз.
 
-* Выполняем команду `curl -s https://raw.githubusercontent.com/Aruiem234/auto_mhddos/main/setup.sh | bash`
+Выполняем команду 
 
-* Скрипт автоматически устанавливает git, python3, pip, mhddos_proxy, MHDDoS и все зависимости.
+```shell
+curl -s https://raw.githubusercontent.com/Aruiem234/auto_mhddos/main/setup.sh | bash
+```
 
-### Запуск скрипта
+Скрипт автоматически устанавливает git, python3, pip, mhddos_proxy, MHDDoS и все зависимости.
 
-* Запускается одной командой (one-liner) в Linux і WSL (Windows Subsystem for Linux). Дальнейшее вмешательство со стороны пользователя не обязательно. `curl -s https://raw.githubusercontent.com/Aruiem234/auto_mhddos/main/runner.sh | bash`
+### Запуск скрипта. Основная команда.
 
-#
+Запускается одной командой (one-liner) в Linux і WSL (Windows Subsystem for Linux). Дальнейшее вмешательство со стороны пользователя не обязательно. 
+
+
+```shell
+curl -s https://raw.githubusercontent.com/Aruiem234/auto_mhddos/main/runner.sh | bash
+```
+
 Команды для разного железа: 
 
--- Слабое (2 ядра 2 ГБ): `curl -s https://raw.githubusercontent.com/Aruiem234/auto_mhddos/main/runner.sh | bash -s -- 1 500 100`
+-- Слабое (2 ядра 2 ГБ). Эти же параметры использутся по умолчанию, если запускать команду без аргументов.
 
--- Среднее: `curl -s https://raw.githubusercontent.com/Aruiem234/auto_mhddos/main/runner.sh | bash -s -- 2 1000 200`
 
--- Быстрое: `curl -s https://raw.githubusercontent.com/Aruiem234/auto_mhddos/main/runner.sh | bash -s -- 2 2000 1000`
+```shell
+curl -s https://raw.githubusercontent.com/Aruiem234/auto_mhddos/main/runner.sh | bash -s -- 1 500 100
+```
+
+-- Среднее: 
+
+
+```shell
+curl -s https://raw.githubusercontent.com/Aruiem234/auto_mhddos/main/runner.sh | bash -s -- 2 1000 200
+```
+
+-- Быстрое: 
+
+
+```shell
+curl -s https://raw.githubusercontent.com/Aruiem234/auto_mhddos/main/runner.sh | bash -s -- 2 2000 1000
+```
 
 Значение параметров на примере "bash -s -- 1 500 100":
 
@@ -38,8 +61,8 @@ docker run -it --rm --pull always ghcr.io/aruiem234/auto_mhddos:latest [num_of_c
 500 - количество потоков (threads). Параметр -t в mhddos_proxy.
 
 100 - параметр --rpc в mhddos_proxy.
-#
 
+# Описание
 * Работает с курируемым админами единым списком [сайтов-целей](https://github.com/Aruiem234/auto_mhddos/blob/main/runner_targets).
 
 * База целей обновляется скриптом каждые 15 мин.
@@ -54,7 +77,7 @@ docker run -it --rm --pull always ghcr.io/aruiem234/auto_mhddos:latest [num_of_c
 
 Рекомендуется использовать на Ubuntu 20.04. Вероятно будет работать на всех Ubuntu начиная с 18.04, а также всех производных Ubuntu и WSL2.
 
-### Завершение скрипта
+# Завершение скрипта
 
 Чтобы завершить скрипт, простой закройте окно с терминалом
 
