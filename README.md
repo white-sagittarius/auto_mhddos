@@ -4,7 +4,7 @@
 
 ### auto_mhddos - bash скрипт автоматизирующий [mhddos_proxy](https://github.com/porthole-ascend-cinnamon/mhddos_proxy)
 
-## Docker
+## 🪖 Docker
 
 ```shell
 docker run -it --rm --pull always ghcr.io/aruiem234/auto_mhddos:latest [num_of_copies] [threads] [rpc]
@@ -12,7 +12,7 @@ docker run -it --rm --pull always ghcr.io/aruiem234/auto_mhddos:latest [num_of_c
 
 Все параметры опциональные, но если передаются, то строго в указанном порядке.
 
-## Bash
+## 🪖 Bash
 
 Перед запуском перейти под пользователя root. Для этого выполнить команду `sudo su`
 
