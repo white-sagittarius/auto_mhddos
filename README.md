@@ -16,7 +16,7 @@ docker run -it --rm --pull always ghcr.io/aruiem234/auto_mhddos:latest [num_of_c
 
 Перед запуском перейти под пользователя root. Для этого выполнить команду `sudo su`
 
-### Установка.
+### 1. Установка.
 
 Выполняется для начальной установки ПО, и периодического обновления. Не обязательно использовать каждый раз.
 
@@ -27,9 +27,11 @@ curl -s https://raw.githubusercontent.com/Aruiem234/auto_mhddos/main/setup.sh | 
 
 Скрипт автоматически устанавливает git, python3, pip, mhddos_proxy, MHDDoS и все зависимости.
 
-### Запуск.
+### 2. Запуск.
 
 Bash скрипт работает в Linux и WSL (Windows Subsystem for Linux).
+
+Не забудьте сначала выполнить пункт №1 (Установка)
 
 
 ```shell
