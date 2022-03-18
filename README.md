@@ -31,7 +31,7 @@ curl -s https://raw.githubusercontent.com/Aruiem234/auto_mhddos/main/setup.sh | 
 
 Bash скрипт работает в Linux и WSL (Windows Subsystem for Linux).
 
-Не забудьте сначала выполнить пункт №1 (Установка)
+Не забудьте сначала выполнить пункт №1 (Установка). Также не забывайте зайти под root пользователем `sudo su`.
 
 
 ```shell
