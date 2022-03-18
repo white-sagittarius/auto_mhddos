@@ -6,6 +6,8 @@
 
 ## 🪖 Docker
 
+Установить [Docker](https://docs.docker.com/get-docker/) и запустить команду:
+
 ```shell
 docker run -it --rm --pull always ghcr.io/aruiem234/auto_mhddos:latest [num_of_copies] [threads] [rpc]
 ```
