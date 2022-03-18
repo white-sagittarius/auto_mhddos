@@ -37,7 +37,7 @@ docker run -it --rm --pull always ghcr.io/aruiem234/auto_mhddos:latest 2 1000 20
 docker run -it --rm --pull always ghcr.io/aruiem234/auto_mhddos:latest 2 2000 1000
 ```
 
-Значение параметров на примере "bash -s -- 1 500 100":
+Значение параметров на примере "1 500 100":
 
 1 - кол-во паралельно запущенных копий mhddos_proxy.
 
