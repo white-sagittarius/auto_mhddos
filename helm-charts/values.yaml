@@ -25,7 +25,6 @@ fullnameOverride: ""
 podAnnotations: {}
 podSecurityContext: {}
 securityContext: {}
-nodeSelector:
-  dedicated: mhddos
+nodeSelector: {}
 tolerations: []
 affinity: {}
