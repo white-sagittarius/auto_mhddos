@@ -11,6 +11,8 @@ sudo apt install python3 -y
 sudo apt upgrade python3 -y
 sudo apt install python3-pip -y
 sudo apt upgrade python3-pip -y
+sudo apt install screen -y
+sudo apt upgrade screen -y
 
 
 
