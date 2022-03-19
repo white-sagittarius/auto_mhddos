@@ -22,8 +22,8 @@ rpc="--rpc $rpc"
 proxy_interval="-p 600"
 
 #Just in case kill previous copy of mhddos_proxy
-sudo pkill -f runner.py
-sudo pkill -f ./start.py
+pkill -f runner.py
+pkill -f ./start.py
 
 
 
@@ -50,7 +50,7 @@ do
             echo "$cmd_line $proxy_interval $threads $rpc"
             
             cd ~/mhddos_proxy
-            sudo python3 $cmd_line $threads $proxy_interval $rpc --debug &
+            python3 $cmd_line $threads $proxy_interval $rpc --debug &
             echo -e "Атаку розпочато успішно, не переймайтеся, що нічого не виводиться на екран – атака запущена у фоні, щоб вона не завершилася при закритті терміналу"
             echo -e "\nЯкщо цікаво можете у іншій вкладці подивитися через: \n ps aux | grep runner.py , що там запущенно\nАбо скачати: \n sudo apt install --upgrade htop \n, та у реальному часі дивития через: \n htop"
    done
@@ -59,7 +59,7 @@ do
    sleep $restart_interval
    clear
    echo -e "\nRESTARTING\nKilling old processes..."
-   sudo pkill -f runner.py
-   sudo pkill -f ./start.py
+   pkill -f runner.py
+   pkill -f ./start.py
    echo -e "\nOld processes have been killed - starting new ones"
 done
