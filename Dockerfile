@@ -8,7 +8,7 @@ RUN pip3 install -r MHDDoS/requirements.txt --target dependencies
 
 FROM python:3.10-alpine3.15
 LABEL org.opencontainers.image.source=https://github.com/Aruiem234/auto_mhddos
-RUN apk update && apk add --no-cache bash curl
+RUN apk add --update --no-cache bash curl sudo
 WORKDIR /root
 COPY --from=builder /mhddos_proxy mhddos_proxy
 ENV PYTHONPATH="${PYTHONPATH}:/root/mhddos_proxy/dependencies"
