@@ -55,7 +55,8 @@ docker run -it --rm --pull always ghcr.io/aruiem234/auto_mhddos:latest 2500 400
 Выполняется для начальной установки ПО, и периодического обновления. Не обязательно использовать каждый раз.  
 
 
-```shell  
+```shell
+sudo su
 cd ~  
 git clone https://github.com/Aruiem234/auto_mhddos.git  
 cd ~/auto_mhddos  
@@ -75,6 +76,7 @@ Bash скрипт работает в Linux и WSL (Windows Subsystem for Linux)
 
 
 ```shell
+sudo su
 cd ~/auto_mhddos
 screen -S "runner" bash runner.sh 1000 200
 ```
