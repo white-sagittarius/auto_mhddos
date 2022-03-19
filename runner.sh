@@ -34,7 +34,7 @@ do
    # Get number of targets in runner_targets. First 5 strings ommited, those are reserved as comments.
    list_size=$(curl -s https://raw.githubusercontent.com/Aruiem234/auto_mhddos/main/runner_targets | cat | grep "^runner.py" | wc -l)
    
-   echo -e "\nNumber of targets in list: " $list_size "\n"
+   echo -e "\nNumber of targets in list: $list_size \n"
 
    
       
