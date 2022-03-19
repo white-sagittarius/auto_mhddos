@@ -3,5 +3,9 @@
 
 # Цели на 19.03
 
-runner.py https://www.politnavigator.news/ http://www.politnavigator.news --http-methods cfb
+runner.py https://www.politnavigator.news/ http://www.politnavigator.news/ --http-methods cfb
 
+
+runner.py https://rusvesna.su/ http://rusvesna.su/ --http-methods cfb
+
+runner.py 95.131.27.119:80 95.131.27.119:443 --http-methods stress
