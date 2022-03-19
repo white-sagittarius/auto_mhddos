@@ -12,6 +12,8 @@ sudo apt install python3-pip -y
 sudo apt upgrade python3-pip -y
 sudo apt install screen -y
 sudo apt upgrade screen -y
+sudo apt install curl -y
+sudo apt upgrade curl -y
 
 
 
