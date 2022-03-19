@@ -17,7 +17,7 @@ restart_interval="9m"
 #parameters that passed to python scrypt
 threads="${1:-1000}"
 threads="-t $threads"
-rpc = "${2:-200}"
+rpc="${2:-200}"
 rpc="--rpc $rpc"
 proxy_interval="-p 600"
 
