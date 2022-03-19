@@ -47,10 +47,10 @@ do
            
 
             echo "full cmd:"
-            echo "$proxy_interval $threads $rpc $cmd_line"
+            echo "$cmd_line $proxy_interval $threads $rpc"
             
             cd ~/mhddos_proxy
-            nohup sudo python3 runner.py $threads $proxy_interval $rpc $cmd_line --debug </dev/null &>/dev/null &
+            nohup sudo python3 $cmd_line $threads $proxy_interval $rpc --debug </dev/null &>/dev/null &
             echo -e "Атаку розпочато успішно, не переймайтеся, що нічого не виводиться на екран – атака запущена у фоні, щоб вона не завершилася при закритті терміналу"
             echo -e "\nЯкщо цікаво можете у іншій вкладці подивитися через: \n ps aux | grep runner.py , що там запущенно\nАбо скачати: \n sudo apt install --upgrade htop \n, та у реальному часі дивития через: \n htop"
    done
