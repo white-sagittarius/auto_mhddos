@@ -2,6 +2,7 @@
 
 sudo apt update -y
 # Install git, python3
+sudo apt install git gcc libc-dev libffi-dev libssl-dev python3-dev rustc -y
 sudo apt install git -y
 sudo apt upgrade git -y
 sudo apt install wget -y
