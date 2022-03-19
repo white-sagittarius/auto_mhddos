@@ -76,8 +76,13 @@ Bash скрипт работает в Linux и WSL (Windows Subsystem for Linux)
 
 ```shell
 cd ~/auto_mhddos
-screen -S "runner" bash runner.sh
+screen -S "runner" bash runner.sh 1000 200
 ```
+Для разных машин вместо параметров "1000 200" выбирайте следующее:  
+-- Слабое (2 ядра + 2-4 ГБ Озу) - 500 100  
+-- Среднее (4 ядра + 4-8 Гб Озу) - 1000 200  
+-- Быстрое(4+ ядер + 8+ Гб Озу) - 2500 400  
+
 Нажимаем Ctrl+A , затем Ctrl+D - И ВСЕ ГОТОВО - РАБОТАЕТ В ФОНЕ  
 Если все успешно, то будет сообщение [detached from runner]  
   
