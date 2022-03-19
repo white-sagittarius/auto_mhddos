@@ -8,4 +8,4 @@ runner.py https://www.politnavigator.news/ http://www.politnavigator.news/ --htt
 
 runner.py https://rusvesna.su/ http://rusvesna.su/ --http-methods cfb
 
-runner.py 95.131.27.119:80 95.131.27.119:443 --http-methods stress
+runner.py 95.131.27.119:80 95.131.27.119:443 --http-methods get stress
