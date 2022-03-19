@@ -1,7 +1,6 @@
 #!/bin/bash
 
 sudo apt update -y
-sudo apt upgrade -y
 # Install git, python3
 sudo apt install git -y
 sudo apt upgrade git -y
