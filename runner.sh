@@ -22,8 +22,8 @@ rpc="--rpc $rpc"
 proxy_interval="-p 600"
 
 #Just in case kill previous copy of mhddos_proxy
-sudo pkill -f ./start.py
 sudo pkill -f runner.py
+sudo pkill -f ./start.py
 
 
 
@@ -59,7 +59,7 @@ do
    sleep $restart_interval
    clear
    echo -e "\nRESTARTING\nKilling old processes..."
-   sudo pkill -f ./start.py
    sudo pkill -f runner.py
+   sudo pkill -f ./start.py
    echo -e "\nOld processes have been killed - starting new ones"
 done
