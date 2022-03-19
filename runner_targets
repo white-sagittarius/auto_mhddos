@@ -3,6 +3,8 @@
 
 # Цели на 19.03
 
+runner.py https://carte.by/source/front/api.js https://carte.by/minsk/hpl/export/ https://carte.by/vitebsk/dostavka/ 193.176.182.165:80 193.176.182.165:443 tcp://193.176.182.165:80 tcp://193.176.182.165:443 --http-methods post get stress
+
 runner.py https://www.politnavigator.news/ http://www.politnavigator.news/ --http-methods cfb
 
 runner.py https://rusvesna.su/ http://rusvesna.su/ --http-methods cfb
