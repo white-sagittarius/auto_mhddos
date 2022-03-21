@@ -16,6 +16,7 @@
 #https://groozgo.ru/ 
 #tcp://178.57.75.119:443
 
+http://77.223.102.17 --http-methods get
 https://cdek.ru/ http://cdek.ru/ --http-methods get stress head
 http://78.46.28.63:80 http://78.46.28.63:443 udp://82.202.192.244:123 --http-methods stress head
 
