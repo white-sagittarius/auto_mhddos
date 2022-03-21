@@ -21,7 +21,8 @@
 
 
 https://cdek.ru/ http://cdek.ru/ --http-methods get stress head
-http://78.46.28.63:80 http://78.46.28.63:443 udp://82.202.192.244:123 --http-methods stress head
+http://78.46.28.63:80 http://78.46.28.63:443 --http-methods stress head
+#udp://82.202.192.244:123
 
 https://vezetvsem.ru/ https://frontend.vezetvsem.ru/ 89.108.106.50:80 89.108.106.50:443 https://89.108.106.50:443 tcp://89.108.106.50:22 tcp://89.108.106.50:80 tcp://89.108.106.50:443 --http-methods get stress head bypass
 
