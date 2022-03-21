@@ -16,8 +16,8 @@
 #https://groozgo.ru/ 
 #tcp://178.57.75.119:443
 # testing
-http://77.223.102.17 --http-methods get
-https://dstat.imagehub.host --http-methods cfb
+#http://77.223.102.17 --http-methods get
+#https://dstat.imagehub.host --http-methods cfb
 
 
 https://cdek.ru/ http://cdek.ru/ --http-methods get stress head
