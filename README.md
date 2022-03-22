@@ -7,6 +7,7 @@
 2. [Bash(Linux-терминал)](https://github.com/Aruiem234/auto_mhddos#-bash)
 3. [Kubernetes](https://github.com/Aruiem234/auto_mhddos/tree/main/helm-charts#mhddos-auto-helm-charts)
 
+##### ❗️❗️❗️❗️ ЛУЧШЕ ЗАПУСКАТЬ НЕСКОЛЬКО ОКОН ПО 1К ПОТОКОВ, ЧЕМ 1 РАЗ С БОЛЬШОЙ НАГРУЗКОЙ
 ## 🪖 Docker
 
 Установить [Docker](https://docs.docker.com/get-docker/) и запустить команду:  
