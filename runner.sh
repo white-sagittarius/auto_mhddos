@@ -20,8 +20,11 @@ threads="-t $threads"
 rpc="${2:-200}"
 rpc="--rpc $rpc"
 instances="${3:-1}"
-debug="${4:-}"
-proxy_interval="-p 900"
+proxy_interval="${4:-900}"
+proxy_interval="-p $proxy_interval"
+network_interval_default="60/30"
+network_interval="${5:-$network_interval_default}"
+debug="${6:-}"
 
 #Just in case kill previous copy of mhddos_proxy
 pkill -f runner.py
@@ -59,7 +62,7 @@ do
   done
 
   echo -e "\nDDoS is monitoring eth0 interface (HH:MM:SS | KB/s in | KB/s out)"
-  ifstat -i eth0 -t 60/30&
+  ifstat -i eth0 -t $network_interval&
 
   echo -e "\nDDoS is up and Running, next update of targets list in $restart_interval\nSleeping\n"
   sleep $restart_interval
