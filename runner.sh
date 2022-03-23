@@ -52,7 +52,7 @@ do
 
     for (( j=1; j<=instances; j++ ))
     do
-      python3 runner.py "$cmd_line" "$threads" "$proxy_interval" "$rpc" "$debug"&
+      python3 runner.py $cmd_line $threads $proxy_interval $rpc $debug&
     done
 
     echo -e "Attack started with $instances instances. Wait a few minutes for output"
