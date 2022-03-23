@@ -62,7 +62,7 @@ do
   done
 
   echo -e "\nDDoS is monitoring eth0 interface (HH:MM:SS | KB/s in | KB/s out)"
-  ifstat -i eth0 -t $network_interval&
+  ifstat -i eth0 -t -b $network_interval&
 
   echo -e "\nDDoS is up and Running, next update of targets list in $restart_interval\nSleeping\n"
   sleep $restart_interval
