@@ -11,7 +11,7 @@
 ## Restart script every N seconds (900s = 15m, 1800s = 30m, 3600s = 60m).
 ## It allows to download updates for mhddos_proxy, MHDDoS and target list.
 ## By default (9m), can be passed as second parameter
-restart_interval="9m"
+restart_interval="60m"
 
 
 #parameters that passed to python scrypt
@@ -21,7 +21,7 @@ rpc="${2:-200}"
 rpc="--rpc $rpc"
 instances="${3:-1}"
 debug="${4:-}"
-proxy_interval="-p 600"
+proxy_interval="-p 900"
 
 #Just in case kill previous copy of mhddos_proxy
 pkill -f runner.py
