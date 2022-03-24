@@ -10,4 +10,6 @@ do
   cp "${my_file}.ipynb" "${my_dir}/${i}_${my_file}.ipynb"
 done
 
+rm "unzip-and-${my_dir}.zip" 2> /dev/null || true
+
 zip -r "unzip-and-${my_dir}.zip" "${my_dir}"
