@@ -37,7 +37,6 @@
 
 [Інструкція зі скріншотами](https://github.com/white-sagittarius/auto_mhddos/blob/main/howto-pics.pdf)
 
-[файли для атаки - 1](https://github.com/white-sagittarius/auto_mhddos/blob/main/howto-pics.pdf)
-
+[Архів з файлами для атаки](https://github.com/white-sagittarius/auto_mhddos/blob/main/unzip-and-upload-to-google-drive.zip). Файли треба скачати, розархівувати та завантажити до Google Drive до акаунту, з якого будете вести атаку. Про це - у інструкції зі скріншотами вище
 
 
