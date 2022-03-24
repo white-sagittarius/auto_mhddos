@@ -13,8 +13,8 @@ if [[ ${PIPESTATUS[0]} -ne 4 ]]; then
     exit 1
 fi
 
-OPTIONS=r:t:p:s:d
-LONGOPTS=refresh-interval:,thread-count:,process-count:,stats-interval:,debug
+OPTIONS=r:t:p:s
+LONGOPTS=refresh-interval:,thread-count:,process-count:,stats-interval:
 
 # -regarding ! and PIPESTATUS see above
 # -temporarily store output to be able to check for errors
@@ -34,7 +34,6 @@ refresh_interval="1h"
 thread_count="500"
 process_count="2"
 stats_interval="30"
-debug=""
 
 # now enjoy the options in order and nicely split until we see --
 while true; do
@@ -54,10 +53,6 @@ while true; do
         -s|--stats-interval)
             stats_interval="$2"
             shift 2
-            ;;
-        -d|--debug)
-            debug="true"
-            shift
             ;;
         --)
             shift
@@ -93,8 +88,8 @@ do
 
     for (( j=1; j<=process_count; j++ ))
     do
-      echo -e "\npython3 runner.py $target_command -t $thread_count -p 25200 --rpc 0 $debug&"
-      python3 runner.py $target_command -t $thread_count -p 25200 --rpc 0 $debug&
+      echo -e "\npython3 runner.py $target_command -t $thread_count -p 25200 --rpc 0&"
+      python3 runner.py $target_command -t $thread_count -p 25200 --rpc 0&
     done
   done
 
