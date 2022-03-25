@@ -32,7 +32,7 @@ eval set -- "$PARSED"
 
 refresh_interval="15m"
 thread_count="1000"
-process_count="1"
+process_count="5"
 stats_interval="30"
 
 # now enjoy the options in order and nicely split until we see --
@@ -74,9 +74,9 @@ while true
 do
   # kill old copies of mhddos_proxy
   echo -e "\nDDoS is (RE)STARTING. Killing old processes..."
-  if pgrep -f runner.py; then pkill -f runner.py; fi
-  if pgrep -f ./start.py; then pkill -f /start.py; fi
-  if pgrep -f ifstat; then pkill -f ifstat; fi
+  if pgrep -f runner.py; then pkill -f runner.py &> /dev/null; fi
+  if pgrep -f ./start.py; then pkill -f /start.py &> /dev/null; fi
+  if pgrep -f ifstat; then pkill -f ifstat &> /dev/null; fi
   echo -e "\nDDoS is (RE)STARTING. Killing old processes... DONE!"
 
   # delete old proxy file if present
