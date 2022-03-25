@@ -1,9 +1,9 @@
 #!/bin/bash
 
-my_file="${1:-auto_mhddos_no_proxy}"
+my_file="${1:-auto_mhddos}"
 my_dir="${2:-upload-to-google-drive}"
 
-mkdir -p "${my_dir}"
+rm -r "${my_dir}" && mkdir -p "${my_dir}"
 
 for (( i=1; i<=5; i++ ))
 do
