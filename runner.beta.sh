@@ -30,9 +30,9 @@ fi
 # read getopt’s output this way to handle the quoting right:
 eval set -- "$PARSED"
 
-refresh_interval="1h"
+refresh_interval="15m"
 thread_count="1000"
-process_count="2"
+process_count="1"
 stats_interval="30"
 
 # now enjoy the options in order and nicely split until we see --
