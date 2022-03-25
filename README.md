@@ -37,7 +37,7 @@
 
 **Зверніть увагу, що швидкість відображається у Kbit/s -> 1000 Kbit/s = 1 Mbit/s**
 
-> [Інструкція зі скріншотами](https://github.com/white-sagittarius/auto_mhddos/blob/main/howto-pics.pdf)
+> Інструкція зі скріншотами на [Google Drive](https://drive.google.com/file/d/1-5gtWBSodbvnTtEoUeMfpF3g8aWC6CNj/view?usp=sharing) або [Github](https://github.com/white-sagittarius/auto_mhddos/blob/main/howto-pics.pdf)
 
 > [Архів з файлами для атаки](https://github.com/white-sagittarius/auto_mhddos/blob/main/unzip-and-upload-to-google-drive.zip). Файли треба скачати, розархівувати та завантажити до Google Drive до акаунту, з якого будете вести атаку. Про це - у інструкції зі скріншотами вище
 
