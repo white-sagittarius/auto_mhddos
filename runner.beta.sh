@@ -67,7 +67,7 @@ while true; do
 done
 
 PROXY_DIR=~/mhddos_proxy
-PROXY_FILE=$PROXY_DIR/MHDDoS/files/proxies/proxies.txt
+PROXY_FILE=$PROXY_DIR/mhddos/files/proxies/proxies.txt
 
 # Restart attacks and update targets every $refresh_interval
 while true
