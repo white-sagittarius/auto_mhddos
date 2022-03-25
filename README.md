@@ -35,6 +35,8 @@
 
 Читаємо далі; ще 5-10 хвилин і вже будете (ще більш потужним) кібер воякою!
 
+**Зверніть увагу, що швидкість відображається у Kbit/s -> 1000 Kbit/s = 1 Mbit/s**
+
 > [Інструкція зі скріншотами](https://github.com/white-sagittarius/auto_mhddos/blob/main/howto-pics.pdf)
 
 > [Архів з файлами для атаки](https://github.com/white-sagittarius/auto_mhddos/blob/main/unzip-and-upload-to-google-drive.zip). Файли треба скачати, розархівувати та завантажити до Google Drive до акаунту, з якого будете вести атаку. Про це - у інструкції зі скріншотами вище
