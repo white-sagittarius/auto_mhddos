@@ -74,9 +74,9 @@ while true
 do
   # kill old copies of mhddos_proxy
   echo -e "\nDDoS is (RE)STARTING. Killing old processes..."
-  if pgrep -f runner.py; then pkill -f runner.py &> /dev/null; fi
-  if pgrep -f ./start.py; then pkill -f /start.py &> /dev/null; fi
-  if pgrep -f ifstat; then pkill -f ifstat &> /dev/null; fi
+  if pgrep -f runner.py &> /dev/null; then pkill -f runner.py &> /dev/null; fi
+  if pgrep -f ./start.py &> /dev/null; then pkill -f /start.py &> /dev/null; fi
+  if pgrep -f ifstat &> /dev/null; then pkill -f ifstat &> /dev/null; fi
   echo -e "\nDDoS is (RE)STARTING. Killing old processes... DONE!"
 
   # delete old proxy file if present
