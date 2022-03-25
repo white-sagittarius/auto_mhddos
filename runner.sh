@@ -13,7 +13,7 @@ if [[ ${PIPESTATUS[0]} -ne 4 ]]; then
     exit 1
 fi
 
-OPTIONS=r:t:p:s
+OPTIONS=r:t:p:s:
 LONGOPTS=refresh-interval:,thread-count:,process-count:,stats-interval:
 
 # -regarding ! and PIPESTATUS see above
