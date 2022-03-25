@@ -88,8 +88,8 @@ do
 
     for (( j=1; j<=process_count; j++ ))
     do
-      echo -e "\npython3 runner.py $target_command -t $thread_count -p 25200 --rpc 0&"
-      python3 runner.py $target_command -t $thread_count -p 25200 --rpc 0&
+      echo -e "\npython3 runner.py $target_command -t $thread_count -p 25200 --rpc 1000&"
+      python3 runner.py $target_command -t $thread_count -p 25200 --rpc 1000&
     done
   done
 
