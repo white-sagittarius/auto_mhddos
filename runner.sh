@@ -31,7 +31,7 @@ fi
 eval set -- "$PARSED"
 
 refresh_interval="1h"
-thread_count="500"
+thread_count="1000"
 process_count="2"
 stats_interval="30"
 
