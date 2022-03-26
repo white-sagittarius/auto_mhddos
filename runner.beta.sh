@@ -71,8 +71,21 @@ while true; do
     esac
 done
 
-PROXY_DIR=~/mhddos_proxy
+PROXY_PROJECT_NAME=mhddos_proxy
+PROXY_PROJECT_VERSION=d3700c0538a3b76944a54c968ccdc88b71016a4d
+
+PROXY_DIR=~/$PROXY_PROJECT_NAME
 PROXY_FILE=$PROXY_DIR/mhddos/files/proxies/proxies.txt
+
+# delete old proxy dir if present
+if [ -d $PROXY_DIR ]; then
+    rm -r $PROXY_DIR &> /dev/null
+fi
+
+git clone https://github.com/porthole-ascend-cinnamon/$PROXY_PROJECT_NAME.git &> /dev/null
+cd $PROXY_DIR
+git checkout $PROXY_PROJECT_VERSION &> /dev/null
+python3 -m pip install -r requirements.txt &> /dev/null
 
 # Restart attacks and update targets every $refresh_interval
 while true
