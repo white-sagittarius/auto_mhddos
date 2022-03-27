@@ -91,7 +91,10 @@ ifstat -i eth0 -t -b -n $stats_interval/$stats_interval | awk '$1 ~ /^[0-9]{2}:/
 
 > Як створити новий акаунт без верифікації телефону?
 
-Це досить легко гуглиться. Я перевіряв [цей](https://www.quora.com/How-can-I-create-a-Google-account-without-a-phone-number-during-the-registration-process) метод на айфоні, все працює, але є і інші
+Це досить легко гуглиться. Наприклад, [цей метод](https://www.quora.com/How-can-I-create-a-Google-account-without-a-phone-number-during-the-registration-process). Стислий виклад: на андроїді зайдіть у Settings -> Users -> Add new user (на айфоні за 
+аналогією). Там можна все зробити без явного вказання телефона (є кнопка Skip). При вказанні віку 
+ставте більше 15-ти років, тобто менше 2007 року народження — тоді не вимагатиме parent email. 
+Але також краще не ставити великий вік, щоб на всяк випадок не просило вводити телефон
 
 > Як часто треба проходити капчу, щоб владки працювали?
 
