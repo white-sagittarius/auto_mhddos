@@ -125,7 +125,7 @@ do
       for (( i=1; i<=process_count; i++ ))
       do
           cd $PROXY_DIR
-          python3 runner.py $target_command -t $thread_count -p 25200 --rpc 1000&
+          python3 runner.py $target_command -t $thread_count -p 25200 --rpc 1000 &> /dev/null&
 
           # wait till the first process initializes proxy file properly
           if [ ! -f $PROXY_FILE ]; then
