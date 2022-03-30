@@ -141,11 +141,6 @@ do
       done
   done
 
-  echo -e "DDoS атака почалася. Активовано моніторинг трафіку на інтерфейсі eth0 (відображається поточний час, вхідна та вихідна швидкість у MB за секунду).\nНаступна перевірка цілей відбудеться через $refresh_interval\n"
-
-  echo -e "Опціонально: для автоматичної очистки виводу на екран кожні 10 хвилин, вставте у консоль браузера (визивається через F12) та нажміть ентер:"
-  echo -e "function ClearOutput(){ document.querySelector("iron-icon[command = 'clear-focused-or-selected-outputs']").click() } setInterval(ClearOutput,600000)"
-
   ifstat -i eth0 -t -b -n $stats_interval/$stats_interval | awk '$1 ~ /^[0-9]{2}:/{$2/=1024;$3/=1024;printf "[%s] %10.2f ↓MBit/s↓  %10.2f ↑MBit/s↑\n",$1,$2,$3}'&
 
   sleep $refresh_interval

