@@ -140,6 +140,7 @@ do
           fi
       done
   done
+  echo -e "Атака почалася (russian warship go f*ck yourself!).\nТут відображатиметься поточний час (розбіжність - 3 години), вхідна та вихідна швидкість у MBit за секунду.\nНаступна перевірка цілей за $refresh_interval\n"
 
   ifstat -i eth0 -t -b -n $stats_interval/$stats_interval | awk '$1 ~ /^[0-9]{2}:/{$2/=1024;$3/=1024;printf "[%s] %10.2f ↓MBit/s↓  %10.2f ↑MBit/s↑\n",$1,$2,$3}'&
 
