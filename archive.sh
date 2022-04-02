@@ -15,11 +15,14 @@ do
   if (( RANDOM % 2 )); then name2="$name2_separator${P2[RANDOM%30]}"; else name2=""; fi
   if (( RANDOM % 2 )); then name3_separator="_"; else name3_separator=""; fi
   if (( RANDOM % 2 )); then name3="$name3_separator${P3[RANDOM%30]}"; else name3=""; fi
-  file_name="${P1[RANDOM%100]}${name2}${name3}.ipynb"
+  id="${P1[RANDOM%100]}${name2}${name3}"
+  file_name="${id}.ipynb"
   resulting_file="${output_dir}/${file_name}"
   cp "${input_file}" ${resulting_file}
-  sed -i "" 's/looooot/nice/g' ${resulting_file}
+  sed -i "" "s/_replace_me_with_unique_name_in_latin_/${id}/g" ${resulting_file}
 done
 
 rm "unzip-and-${output_dir}.zip" 2> /dev/null || true
 zip -r "unzip-and-${output_dir}.zip" "${output_dir}"
+rm -rf "${output_dir}"
+
