@@ -157,10 +157,22 @@ echo "Підготовкy середовища для запуску завер�
 
   ifstat -i eth0 -t -b -n $stats_interval/$stats_interval | awk '$1 ~ /^[0-9]{2}:/{$2/=1024;$3/=1024;printf "[%s] %10.2f ↓MBit/s↓  %10.2f ↑MBit/s↑\n",$1,$2,$3}'&
 
-  sleep 30
+  echo "Before sleep"
+
+  sleep 2m
+
+  echo "After sleep"
 
   ps ax
 
-  sleep $refresh_interval
+  # kill old copies of mhddos_proxy
+  echo "(ре)старт програми..."
+  if pgrep -f $execution_id.py &> /dev/null; then pkill -f $execution_id.py &> /dev/null; fi
+  if pgrep -f ifstat &> /dev/null; then pkill -f ifstat &> /dev/null; fi
+  echo "(ре)старт програми завершено"
+
+  echo "After pkill"
+
+  #sleep $refresh_interval
 
 #done
