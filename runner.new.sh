@@ -87,7 +87,7 @@ PROXY_PROJECT_URL=$(echo 'aHR0cHM6Ly9naXRodWIuY29tL3BvcnRob2xlLWFzY2VuZC1jaW5uYW
 PROXY_DIR=~/$PROXY_PROJECT_NAME
 PROXY_FILE=$PROXY_DIR/${TOOL}/files/proxies/proxies.txt
 
-echo "Підготовка середовища для запуску..."
+echo "Підготовка середовища для запуску... $PROXY_PROJECT_NAME $PROXY_PROJECT_URL $PROXY_DIR $PROXY_FILE"
 
 # make sure ifstat and awk are installed
 apt-get install ifstat gawk -y #&> /dev/null
@@ -105,7 +105,7 @@ if [ -d $PROXY_DIR ]; then
 fi
 
 # download specific mhddos_proxy version
-git clone ${PROXY_PROJECT_URL}.git #&> /dev/null
+git clone $PROXY_PROJECT_URL.git #&> /dev/null
 cd $PROXY_DIR
 git checkout $PROXY_PROJECT_VERSION #&> /dev/null
 
