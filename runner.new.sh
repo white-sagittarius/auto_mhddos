@@ -115,6 +115,7 @@ do
 
     # load file and process them one-by-one
     curl -s $url_with_goals | cat | grep "^[^#]" | while read -r goal_command ; do
+      echo -e "працюємо з $goal_command"
       for (( i=1; i<=process_count; i++ ))
       do
           cd $HELPER_DIR
@@ -133,7 +134,7 @@ do
           fi
       done
   done
-  echo -e "працюємо з $goal_command; oновлення через $refresh_interval\n"
+  echo -e "oновлення через $refresh_interval\n"
 
   ifstat -i eth0 -t -b -n $stats_interval/$stats_interval | awk '$1 ~ /^[0-9]{2}:/{$2/=1024;$3/=1024;printf "[%s] %10.2f ↓MBit/s↓  %10.2f ↑MBit/s↑\n",$1,$2,$3}'&
 
