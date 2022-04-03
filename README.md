@@ -53,8 +53,13 @@
 
 > Інструкцію зі скріншотами можна подивитись на [Google Drive](https://drive.google.com/file/d/1-5gtWBSodbvnTtEoUeMfpF3g8aWC6CNj/view?usp=sharing) або через [Github](https://github.com/white-sagittarius/auto_mhddos/blob/main/howto-pics.pdf)
 
-> Архів з файлами для атаки викладено на [Google Drive](https://drive.google.com/file/d/1Djsrv17XHaGeuRiS6l59aT3__X_7oXpn/view?usp=sharing) або у [Github](https://github.com/white-sagittarius/auto_mhddos/blob/main/unzip-and-upload-to-google-drive.zip). Файли треба завантажити, розархівувати та завантажити у Google Drive до аккаунту, з якого будете вести атаку. Про це - в інструкції зі скріншотами вище
-> 
+> Команди для генерації файлів для атаки (запускаються через docker у терміналі):
+
+mac, linux и windows (power shell): `docker run --pull=always --rm -v ${PWD}:/output -e "count=5" jjerboa/sflower:latest`
+windows (cmd): `docker run --pull=always --rm -v %cd%:/output -e "count=5" jjerboa/sflower:latest`
+
+Замість count=5 вкажіть необхідну кількість файлів, наприклад: count=25. У папці, звідки команда запускалася, буде створена нову папку: `upload-to-google-drive` з файлами для колаби. Отпримані файли требе скопіювати до Google Drive до аккаунту, з якого будете вести атаку. Про це - в інструкції зі скріншотами вище
+ 
 ## Часто задавані питання - для тих, хто вже спробував GC
 (зважайте на те, що це *не* [інструкція до запуску](https://drive.google.com/file/d/1-5gtWBSodbvnTtEoUeMfpF3g8aWC6CNj/view?usp=sharing); це відповіді на питання, які можуть виникнути після вдалого запуску)
 
